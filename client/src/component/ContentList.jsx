@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
+
 import CreateEventModal from './CreateEventModal';
 import UpdateEventModal from './UpdateEventModal';
+
+
 // Define the API endpoint
 const API_URL = 'http://localhost:5000/api/event'; // Adjust if your endpoint is different
 
@@ -24,6 +27,8 @@ function ContentList() {
         content: '',
         url: '',
     });
+    // 7. State for draggable items
+    const [dragIndex, setDragIndex] = useState(null);
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
     useEffect(() => {
@@ -166,10 +171,24 @@ function ContentList() {
             alert('Network error. Could not connect to the API.');
         }
     };
-
+    // ========================== REORDER ================================
+    const handleDragStart = (index) => {
+        setDragIndex(index);
+    }
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    }
+    const handleDrop = (index) => {
+        const newItems = [...contentItems];
+        const draggedItem = newItems[dragIndex];
+        newItems.splice(dragIndex, 1);
+        newItems.splice(index, 0, draggedItem);
+        setContentItems(newItems);
+        setDragIndex(null);
+    }
     // Render the Board
     return (
-        <div className="content-list">
+        <div className="content-list-container">
 
              <button 
                 onClick={() => setisCreateModalOpen(true)}
@@ -187,36 +206,45 @@ function ContentList() {
                 isOpen={isUpdateModalOpen} 
                 onClose={() => setisUpdateModalOpen(false)}
                 onUpdateSubmit={handleUpdate}
-                setFormData={setUpdateItems}
+                updateData={setUpdateItems}
             />
 
-            
+            <ul>
+                {contentItems.map((item, index) => (
+                    <li 
+                    key={index} 
+                    draggable
+                    onDragStart={()=>handleDragStart(index)}
+                    onDragOver={handleDragOver}
+                    onDrop={()=>handleDrop(index)}
+                    className={index === dragIndex ? "dragging" : ""}>
+                        
+                    <div key={item.id} className="content-item">
+                        <h2>
+                            {item.position}. {item.title}
+                        </h2>
+                        <p>{item.content}</p>
+                        <a href={item.url} target="_blank" rel="noopener noreferrer">
+                            This is an image
+                        </a>
+                        <button 
+                            onClick={() => handleDelete(item)} 
+                            style={{ marginLeft: '20px', backgroundColor: 'red', color: 'white', border: 'none' }}
+                        >
+                            Delete
+                        </button>
+                        <button 
+                            onClick={() => handleUpdateClick(item)} 
+                            style={{ marginLeft: '20px', backgroundColor: 'orange', color: 'white', border: 'none' }}
+                        >
+                            {item.id}
+                        </button>
+                        
+                    </div>
+                </li>
+                ))}
+            </ul>
 
-            {contentItems.map((item) => (
-                // Use a unique key for list items, the 'position' or an 'id' from the DB is ideal
-                <div key={item.position} className="content-item">
-                    <h2>
-                        {item.id}. {item.title}
-                    </h2>
-                    <p>{item.content}</p>
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">
-                        This is an image
-                    </a>
-                    <button 
-                        onClick={() => handleDelete(item)} 
-                        style={{ marginLeft: '20px', backgroundColor: 'red', color: 'white', border: 'none' }}
-                    >
-                        Delete
-                    </button>
-                    <button 
-                        onClick={() => handleUpdateClick(item)} 
-                        style={{ marginLeft: '20px', backgroundColor: 'orange', color: 'white', border: 'none' }}
-                    >
-                        {item.id}
-                    </button>
-                    
-                </div>
-            ))}
         </div>
     );
 }
