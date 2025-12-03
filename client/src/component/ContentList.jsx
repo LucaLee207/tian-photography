@@ -186,6 +186,33 @@ function ContentList() {
         setContentItems(newItems);
         setDragIndex(null);
     }
+    const handleOrderConfirmed = async () => {
+        const ids = contentItems.map(item => item.id);
+        
+        try {
+            const response = await fetch(`${API_URL}/order`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(ids),
+            });
+            
+            const result = await response.json(); 
+
+            if (response.ok) {
+                console.log('Order Updated Successful',);
+            } else {
+                console.error('API Error:', result.message);
+                alert(`Error: ${result.message}`);
+            }
+
+        } catch (error) {
+            console.error('Network Error:', error);
+            alert('Network error. Could not connect to the API.');
+        }
+
+    }
     // Render the Board
     return (
         <div className="content-list-container">
@@ -195,6 +222,11 @@ function ContentList() {
                 style={{ marginBottom: '20px' }}
             >
                 ➕ Create New Item
+            </button>
+            <button
+                onClick={() => handleOrderConfirmed()}
+            style ={{ marginLeft: '10px', marginBottom: '20px' }}>
+                🔄 Order Confirmed
             </button>
             <CreateEventModal 
                 isOpen={isCreateModalOpen} 
@@ -221,7 +253,7 @@ function ContentList() {
                         
                     <div key={item.id} className="content-item">
                         <h2>
-                            {item.position}. {item.title}
+                            {item.title}
                         </h2>
                         <p>{item.content}</p>
                         <a href={item.url} target="_blank" rel="noopener noreferrer">

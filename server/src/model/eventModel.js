@@ -27,3 +27,18 @@ export const deleteEventService = async (id) => {
     const result = await pool.query("DELETE FROM test1 WHERE id = $1", [id]);
     return result.rows[0];
 };
+
+export const orderEventsService = async (ids) => {
+    console.log("Reordering events with IDs:", ids);
+    // This ensures if any update fails, ALL previous updates are rolled back.
+    for (let i = 0; i < ids.length; i++) {
+        const sql = `
+            UPDATE test1
+            SET position = $1
+            WHERE id = $2;
+        `;
+        // $1 is the new position, $2 is the identifier (old position)
+        await pool.query(sql, [i+1, ids[i]]);
+    }
+    return true;
+};
