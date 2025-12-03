@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // You would replace this with your actual CSS or a styling library
 const modalStyles = {
@@ -13,14 +13,11 @@ const modalStyles = {
     }
 };
 
-function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, setFormData}) {
-   
-    
 
-
+function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) {
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevData => ({
+        updateData(prevData => ({
             ...prevData,
             [name]: name === 'position' ? Number(value) : value,
         }));

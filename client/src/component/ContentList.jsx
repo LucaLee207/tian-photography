@@ -99,7 +99,7 @@ function ContentList() {
         setisUpdateModalOpen(true);
     }
     const handleUpdate = async (formData) => {
-        const {id, title, position, content} = formData;
+        const {id} = formData;
         try {
             const response = await fetch(`${API_URL}/${id}`, {
                 method: 'PUT',
@@ -134,7 +134,7 @@ function ContentList() {
     };
     // ========================== DELETE ================================
     const handleDelete = async (item) => {
-        const {id, title, position, content} =item;
+        const {id, title} =item;
         // 1. Give the user a chance to confirm the deletion (Highly recommended!)
         if (!window.confirm(`Are you sure you want to delete item ${title}?`)) {
             return; // Stop if the user clicks Cancel
