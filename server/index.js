@@ -18,7 +18,7 @@ app.use("/api", eventRoutes);
 
 app.get("/test", async(req, res) => {
     try{
-        const result = await db.query("SELECT * FROM test1");
+        const result = await db.query("SELECT * FROM event");
         res.json(result.rows);
         
     }catch (err){

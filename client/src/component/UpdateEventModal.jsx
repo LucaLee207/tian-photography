@@ -19,7 +19,7 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
         const { name, value } = e.target;
         updateData(prevData => ({
             ...prevData,
-            [name]: name === 'position' ? Number(value) : value,
+            [name]: value,
         }));
     };
 
@@ -41,14 +41,6 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
             <div style={modalStyles.content}>
                 <h3>Update Item {data.id}</h3>
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="number" 
-                        name="position" 
-                        placeholder="Position (number)" 
-                        value={data.position} 
-                        onChange={handleChange} 
-                        required 
-                    />
                     <input 
                         type="text" 
                         name="title" 

@@ -9,9 +9,9 @@ const handleResponse = (res, status, message, data=null) => {
 };
 
 export const createEvent = async (req, res, next) =>{
-    const {position, title, content, url} = req.body;
+    const {position, title, content, url, category} = req.body;
     try {
-        const newEvent = await createEventService(position, title, content, url);
+        const newEvent = await createEventService(position, title, content, url, category);
         handleResponse(res, 201, "Event created successfully", newEvent);
     } catch (err) {
         next(err);
@@ -36,9 +36,9 @@ export const getEventById = async (req, res, next) =>{
     };
 };
 export const updateEvent = async (req, res, next) =>{
-    const {position, title, content, url} = req.body;
+    const {title, content, url} = req.body;
     try {
-        const updatedEvent = await updateEventService(req.params.id, position, title, content, url);
+        const updatedEvent = await updateEventService(req.params.id, title, content, url);
         handleResponse(res, 200, "Event updated successfully", updatedEvent);
     } catch (err) {
         next(err);

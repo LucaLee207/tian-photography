@@ -21,8 +21,6 @@ function ContentList() {
     const [isUpdateModalOpen, setisUpdateModalOpen] = useState(false);
     // 6. State for update data
     const [updateItems, setUpdateItems] = useState({
-        id: '',
-        position: '',
         title: '',
         content: '',
         url: '',
@@ -66,11 +64,12 @@ function ContentList() {
         return <div style={{ color: 'red' }}>Error: {error}</div>;
     }
 
-    if (contentItems.length === 0) {
-        return <div>No content items found.</div>;
-    }
+    // if (contentItems.length === 0) {
+    //     return <div>No content items found.</div>;
+    // }
     // ========================== CREATE ================================
     const handleCreateSubmit = async (formData) => {
+        formData = {...formData, position: contentItems.length+1, category: "wedding"};
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
@@ -202,6 +201,7 @@ function ContentList() {
 
             if (response.ok) {
                 console.log('Order Updated Successful',);
+                alert("Order Saved!");
             } else {
                 console.error('API Error:', result.message);
                 alert(`Error: ${result.message}`);
@@ -256,6 +256,7 @@ function ContentList() {
                             {item.title}
                         </h2>
                         <p>{item.content}</p>
+                        <p>{item.category}</p>
                         <a href={item.url} target="_blank" rel="noopener noreferrer">
                             This is an image
                         </a>

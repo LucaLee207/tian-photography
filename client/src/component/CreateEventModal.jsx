@@ -16,17 +16,16 @@ const modalStyles = {
 function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     // 1. State for Form Inputs
     const [formData, setFormData] = useState({
-        position: '',
         title: '',
         content: '',
-        url: '',
+        url: ''
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevData => ({
             ...prevData,
-            [name]: name === 'position' ? Number(value) : value,
+            [name]: value,
         }));
     };
 
@@ -38,14 +37,14 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
         onCreateSubmit(formData);
 
         // Reset the form data after submission
-        setFormData({ position: '', title: '', content: '', url: '' });
+        setFormData({  title: '', content: '', url: '' });
         
         // Close the modal
         onClose();
     };
     const handleCancel = (e) => {
         // Reset the form data after submission
-        setFormData({ position: '', title: '', content: '', url: '' });
+        setFormData({ title: '', content: '', url: '' });
         
         // Close the modal
         onClose();
@@ -59,14 +58,6 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
             <div style={modalStyles.content}>
                 <h3>Create New Item</h3>
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="number" 
-                        name="position" 
-                        placeholder="Position (number)" 
-                        value={formData.position} 
-                        onChange={handleChange} 
-                        required 
-                    />
                     <input 
                         type="text" 
                         name="title" 
