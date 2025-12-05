@@ -39,6 +39,9 @@ export const orderEventsService = async (ids) => {
         // $1 is the new position, $2 is the identifier (old position)
         await pool.query(sql, [i+1, ids[i]]);
     }
-    return true;
+
+    const result = await pool.query("SELECT * FROM event ORDER BY position ASC");
+    return result.rows;
+   
 };
 

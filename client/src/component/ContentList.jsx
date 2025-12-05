@@ -8,7 +8,7 @@ import UpdateEventModal from './UpdateEventModal';
 const API_URL = 'http://localhost:5000/api/event'; // Adjust if your endpoint is different
 
 
-function ContentList() {
+function ContentList({pageCategory}) {
     // 1. State for Data: Stores the fetched array of content items
     const [contentItems, setContentItems] = useState([]);
     // 2. State for Loading: Shows a message while waiting for the response
@@ -42,8 +42,8 @@ function ContentList() {
                 const data = responseBody.data
                 // 💡 Sort the data by the 'position' field before saving it
                 data.sort((a, b) => a.position - b.position);
-                
-                setContentItems(data);
+                const filteredData = data.filter(item => item.category === pageCategory);
+                setContentItems(filteredData);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -69,7 +69,7 @@ function ContentList() {
     // }
     // ========================== CREATE ================================
     const handleCreateSubmit = async (formData) => {
-        formData = {...formData, position: contentItems.length+1, category: "wedding"};
+        formData = {...formData, position: 0, category: pageCategory};
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
@@ -86,7 +86,7 @@ function ContentList() {
                 alert("Item created!"); 
                 
                 // 💡 Key Action: Update the main list after creation
-                setContentItems([result.data, ...contentItems].sort((a, b) => a.position - b.position))
+                setContentItems([result.data, ...contentItems])
             } else {
                 console.error('API Error:', result.message);
                 alert(`Error: ${result.message}`);
@@ -198,10 +198,18 @@ function ContentList() {
             });
             
             const result = await response.json(); 
-
+            const data = result.data;
+                
+            
             if (response.ok) {
                 console.log('Order Updated Successful',);
                 alert("Order Saved!");
+                // 💡 Key Action: Update the main list after reordering
+                data.sort((a, b) => a.position - b.position);
+                const filteredData = data.filter(item => item.category === pageCategory);
+                setContentItems(filteredData);
+               
+                
             } else {
                 console.error('API Error:', result.message);
                 alert(`Error: ${result.message}`);
@@ -216,7 +224,6 @@ function ContentList() {
     // Render the Board
     return (
         <div className="content-list-container">
-
              <button 
                 onClick={() => setisCreateModalOpen(true)}
                 style={{ marginBottom: '20px' }}
@@ -253,7 +260,7 @@ function ContentList() {
                         
                     <div key={item.id} className="content-item">
                         <h2>
-                            {item.title}
+                            {item.title} {item.position}
                         </h2>
                         <p>{item.content}</p>
                         <p>{item.category}</p>

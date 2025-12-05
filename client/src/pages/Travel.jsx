@@ -1,10 +1,10 @@
 import React from "react"
-
+import ContentList from "../component/ContentList"
 
 function Travel(){
     return(
         <>
-        <h1>This is an travel page</h1>
+        <ContentList pageCategory="travel"/>
         </>
     )
 }

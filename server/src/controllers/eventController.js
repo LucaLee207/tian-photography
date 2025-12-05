@@ -58,8 +58,8 @@ export const deleteEvent = async (req, res, next) =>{
 
 export const orderEvents = async (req, res, next) =>{
     try {
-        await orderEventsService(req.body);
-        handleResponse(res, 200, "Event order updated successfully");
+        const orderedEvents = await orderEventsService(req.body);
+        handleResponse(res, 200, "Event order updated successfully", orderedEvents);
     } catch (err) {
         next(err);
     };

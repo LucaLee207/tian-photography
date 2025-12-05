@@ -1,10 +1,10 @@
 import React from "react"
-
+import ContentList from "../component/ContentList"
 
 function Activity(){
     return(
         <>
-        <h1>This is an Activity page</h1>
+        <ContentList pageCategory="activity"/>
         </>
     )
 }
