@@ -1,4 +1,5 @@
 
+
 .navbar {
     z-index: 1000;
     position: fixed;
@@ -8,8 +9,12 @@
     left: 0;
     width: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
 }
+.navbar-home{
+    background-color: transparent;
+    box-shadow: none;
+}
+
 .navbar a{
   text-decoration: none;
   color: #333;
@@ -99,4 +104,5 @@
     font-weight: 300;
     color: #EEB76B; /* Subtle color */
 }
+
 

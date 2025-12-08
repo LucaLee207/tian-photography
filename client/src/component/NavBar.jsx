@@ -3,14 +3,20 @@ import { Link, useLocation } from "react-router-dom";
 function NavBar() {
     const location = useLocation();
     const currentPath = location.pathname;
-
+    const getNavbarBgClass = (path) => {
+        if (path === '/') {
+            return 'navbar-home'; // Use navbar-light for dark text
+        }
+    };
+    const navbarBgClass  = getNavbarBgClass(currentPath);
+    const navbarClasses = `navbar bodoni-moda-serif fixed-top pb-0 ${navbarBgClass}`;
     return(
-       <nav className="navbar bodoni-moda-serif fixed-top">
+       <nav className= {navbarClasses}>
     
 
         {/* --- 1. HAMBURGER BUTTON (Visible on screens smaller than lg) --- */}
         <button 
-            className="navbar-toggler d-lg-none" // Show Toggler only when < lg
+            className="navbar-toggler d-lg-none ms-3" // Show Toggler only when < lg
             type="button" 
             data-bs-toggle="offcanvas" 
             data-bs-target="#offcanvasNavbar" 
@@ -21,8 +27,9 @@ function NavBar() {
 
         {/* --- 2. LOGO (Always Visible, Centered on Mobile) --- */}
         
-        <div className="navbar-brand mb-3 mx-auto d-lg-none"> 
-            <img src={'/logo.png'} alt="Logo" height="30" />
+        <div className="navbar-brand  mx-auto d-lg-none bodoni-moda-serif"> 
+            <h1>TIAN</h1>
+            {/* <img src={'/logo.png'} alt="Logo" height="30" /> */}
         </div>
 
         {/* --- 3. DESKTOP LINKS (Hidden on screens smaller than lg) --- */}
@@ -35,8 +42,9 @@ function NavBar() {
             <Link to="/event/wedding" className={currentPath==='/event/wedding' ? 'active':''}>Wedding</Link>
             <Link to="/event/concert" className={currentPath==='/event/concert' ? 'active':''}>Concert</Link>
             
-            <div className="navbar-brand mb-3 mx-3 "> 
-                <img src={'/logo.png'} alt="Logo" height="30" />
+            <div className="navbar-brand mb-1 mx-3 bodoni-moda-serif"> 
+                <h1>TIAN</h1>
+                {/* <img src={'/logo.png'} alt="Logo" height="30" /> */}
             </div>
             {/* The Logo is already placed in the center (navbar-brand) */}
             
@@ -56,7 +64,7 @@ function NavBar() {
         id="offcanvasNavbar" 
         aria-labelledby="offcanvasNavbarLabel"
     >
-        <div className="offcanvas-header">
+        <div className="offcanvas-header ">
             <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
             <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
