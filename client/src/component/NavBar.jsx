@@ -1,26 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function NavBar() {
+    const location = useLocation();
+    const currentPath = location.pathname;
+
     return(
-        <nav className="navbar">
+        <nav className="navbar bodoni-moda-serif">
             <div className = "navbar-brand">
-                <Link to="/">Tian's Websites</Link>
+                <h1>Tian</h1>
             </div>
-            <div className="navbar-links">
-                <Link to="/">Home</Link>
-                <Link to="/portrait">Portrait</Link>
-                <div className="dropdown">
-                    <Link to="/event">Event</Link>
-                    <div className="dropdown-content">
-                        <Link to="/event/wedding">Wedding</Link>
-                        <Link to="/event/concert">Concert</Link>
-                        <Link to="/event/travel">Travel</Link>
-                        <Link to="/event/activity">Activity</Link>
-                    </div>
+            <div className="navbar-container">
+                <div className="navbar-links">
+                    <Link to="/" className={currentPath==='/' ? 'active':''}>Home</Link>
+                    <Link to="/portrait" className={currentPath==='/portrait' ? 'active':''}>Portrait</Link>
+                    <Link to="/event/wedding" className={currentPath==='/event/wedding' ? 'active':''}>Wedding</Link>
+                    <Link to="/event/concert" className={currentPath==='/event/concert' ? 'active':''}>Concert</Link>
+                    <Link to="/event/travel" className={currentPath==='/event/travel' ? 'active':''}>Travel</Link>
+                    <Link to="/event/activity" className={currentPath==='/event/activity' ? 'active':''}>Activity</Link>
+                    <Link to="/myworks" className={currentPath==='/myworks' ? 'active':''}>MyWorks</Link>
+                    <Link to="/about" className={currentPath==='/about' ? 'active':''}>About</Link>
                 </div>
-                
-                <Link to="/myworks">My Works</Link>
-                <Link to="/about">About</Link>
             </div>
         </nav>
     );

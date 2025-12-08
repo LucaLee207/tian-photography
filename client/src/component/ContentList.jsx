@@ -2,7 +2,8 @@ import React, { useState, useEffect} from 'react';
 
 import CreateEventModal from './CreateEventModal';
 import UpdateEventModal from './UpdateEventModal';
-
+import EventCard from './EventCard';
+import EventCard2 from './EventCard2';
 
 // Define the API endpoint
 const API_URL = 'http://localhost:5000/api/event'; // Adjust if your endpoint is different
@@ -224,7 +225,10 @@ function ContentList({pageCategory}) {
     // Render the Board
     return (
         <div className="content-list-container">
-             <button 
+            <div className="content-list-header">
+                <h1>{pageCategory.toUpperCase()} Events</h1>
+            </div>
+            <button 
                 onClick={() => setisCreateModalOpen(true)}
                 style={{ marginBottom: '20px' }}
             >
@@ -247,8 +251,10 @@ function ContentList({pageCategory}) {
                 onUpdateSubmit={handleUpdate}
                 updateData={setUpdateItems}
             />
-
-            <ul>
+            
+            {/* <EventCard event={{title: "Sample Event", content: "This is a sample event content."}} />
+            <EventCard2 event={{title: "Sample Event", content: "This is a sample event content."}} /> */}
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
                 {contentItems.map((item, index) => (
                     <li 
                     key={index} 
@@ -259,15 +265,17 @@ function ContentList({pageCategory}) {
                     className={index === dragIndex ? "dragging" : ""}>
                         
                     <div key={item.id} className="content-item">
-                        <h2>
+                        {/* <h2>
                             {item.title} {item.position}
                         </h2>
                         <p>{item.content}</p>
                         <p>{item.category}</p>
                         <a href={item.url} target="_blank" rel="noopener noreferrer">
                             This is an image
-                        </a>
-                        <button 
+                        </a> */}
+                        <EventCard event={item} />
+                        <EventCard2 event={item} />
+                        {/* <button 
                             onClick={() => handleDelete(item)} 
                             style={{ marginLeft: '20px', backgroundColor: 'red', color: 'white', border: 'none' }}
                         >
@@ -278,7 +286,7 @@ function ContentList({pageCategory}) {
                             style={{ marginLeft: '20px', backgroundColor: 'orange', color: 'white', border: 'none' }}
                         >
                             {item.id}
-                        </button>
+                        </button> */}
                         
                     </div>
                 </li>

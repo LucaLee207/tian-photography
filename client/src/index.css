@@ -1,13 +1,107 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.navbar {
+  /* Fixes the navbar to the top of the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+}
+.navbar a{
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;;
+  margin: 0 15px; /* Spacing between links */
+}
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0px;
+}
+.navbar-brand h1 {
+    margin: 0;
+    text-align: center;
+    font-weight: 700;
+}
+.navbar-container {
+  display: flex;
+  justify-content: center;
+
+}
+
+.navbar-links a {
+    /* Set positioning context for the ::after element */
+    position: relative;
+}
+.navbar-links a::after {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+    bottom: -2px; /* Position it slightly below the text */
+    left: 0;
+    width: 0; /* Start with zero width (hidden) */
+    height: 1px; /* The thickness of the line */
+    background-color: #333; /* Color of the line */
+    transition: width 0.2s ease-out; /* Smooth transition for the line expansion */
+}
+
+.navbar-links {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navbar-links a:hover::after {
+    width: 100%; /* Line expands to full width */
+}
+.navbar-links a.active::after {
+    width: 100%; /* Line expands to full width for active link */
+    background-color: #000; /* Different color for active link */
+}
+
+
+/* Optional: Subtle text color change on hover */
+.navbar-links a:hover {
+    color: #000;
+}
+
+.bodoni-moda-serif{
+  font-family: "Bodoni Moda", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: bold;
+}
+
+
+
+.card-title {
+    font-family: 'Playfair Display', Georgia, serif; /* Replace with your chosen font */
+    font-size: 1.5rem;
+    font-weight: 400; /* Often lighter than default bold */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+/* Body text uses a clean sans-serif (or a matching serif) */
+.card-text {
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Or another clean font */
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.index-number {
+    /* Set index number apart from the main content */
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: #EEB76B; /* Subtle color */
+}
+
