@@ -9,7 +9,7 @@ const modalStyles = {
     },
     content: {
         backgroundColor: 'white', padding: '30px', borderRadius: '8px', 
-        width: '400px', maxWidth: '90%'
+        width: '60%', maxWidth: '90%', height: '70%'
     }
 };
 
@@ -58,6 +58,8 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
             <div style={modalStyles.content}>
                 <h3>Create New Item</h3>
                 <form onSubmit={handleSubmit}>
+                    <div className="row g-2 d-flex flex-column">
+                    <h6>Title</h6>  
                     <input 
                         type="text" 
                         name="title" 
@@ -65,7 +67,8 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
                         value={formData.title} 
                         onChange={handleChange} 
                         required 
-                    />
+                    /> 
+                    <h6>Content</h6>
                     <textarea 
                         name="content" 
                         placeholder="Content" 
@@ -73,6 +76,7 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
                         onChange={handleChange} 
                         required
                     />
+                    <h6>Image URL</h6>
                     <input 
                         type="url" 
                         name="url" 
@@ -81,9 +85,10 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
                         onChange={handleChange} 
                         required
                     />
+                    </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '15px' }}>
-                        <button type="button" onClick={handleCancel} style={{ marginRight: '10px' }}>Cancel</button>
-                        <button type="submit">Create</button>
+                        <button type="button" className="btn btn-outline-secondary" onClick={handleCancel} style={{ marginRight: '10px' }}>Cancel</button>
+                        <button type="submit" className="btn btn-primary">Create</button>
                     </div>
                 </form>
             </div>

@@ -224,21 +224,24 @@ function ContentList({pageCategory}) {
     }
     // Render the Board
     return (
-        <div className="content-list-container">
-            <div className="content-list-header">
-                <h1>{pageCategory.toUpperCase()} Events</h1>
+        <div className="content-list-container mx-3">
+            <div className="mt-5 pt-5 row d-flex justify-content-center align-items-center mb-3">
+                <button 
+                    type="button"
+                    className="btn btn-outline-primary w-25"
+                    onClick={() => setisCreateModalOpen(true)}
+                    style={{ marginBottom: '20px' }}
+                >
+                    Create New Item
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-outline-primary align-self-center w-25"
+                    onClick={() => handleOrderConfirmed()}
+                    style ={{ marginLeft: '10px', marginBottom: '20px' }}>
+                    Order Confirmed
+                </button>
             </div>
-            <button 
-                onClick={() => setisCreateModalOpen(true)}
-                style={{ marginBottom: '20px' }}
-            >
-                ➕ Create New Item
-            </button>
-            <button
-                onClick={() => handleOrderConfirmed()}
-            style ={{ marginLeft: '10px', marginBottom: '20px' }}>
-                🔄 Order Confirmed
-            </button>
             <CreateEventModal 
                 isOpen={isCreateModalOpen} 
                 onClose={() => setisCreateModalOpen(false)}
@@ -275,18 +278,24 @@ function ContentList({pageCategory}) {
                         </a> */}
                         <EventCard event={item} />
                         <EventCard2 event={item} />
-                        {/* <button 
+                        <div className="row d-flex justify-content-center">
+                        <button
+                            type="button"
+                            className="btn btn-outline-danger w-25"
                             onClick={() => handleDelete(item)} 
-                            style={{ marginLeft: '20px', backgroundColor: 'red', color: 'white', border: 'none' }}
+                            style={{ marginLeft: '20px'}}
                         >
                             Delete
                         </button>
                         <button 
+                            type="button"
+                            className="btn btn-outline-warning w-25"
                             onClick={() => handleUpdateClick(item)} 
-                            style={{ marginLeft: '20px', backgroundColor: 'orange', color: 'white', border: 'none' }}
+                            style={{ marginLeft: '20px'}}
                         >
-                            {item.id}
-                        </button> */}
+                            Update
+                        </button>
+                        </div>
                         
                     </div>
                 </li>

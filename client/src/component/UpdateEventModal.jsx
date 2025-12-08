@@ -5,11 +5,11 @@ const modalStyles = {
     overlay: {
         position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
         backgroundColor: 'rgba(0, 0, 0, 0.7)', display: 'flex', 
-        justifyContent: 'center', alignItems: 'center', zIndex: 1000 
+        justifyContent: 'center', alignItems: 'center', zIndex: 1002 
     },
     content: {
         backgroundColor: 'white', padding: '30px', borderRadius: '8px', 
-        width: '400px', maxWidth: '90%'
+        width: '60%', maxWidth: '90%', height: '70%'
     }
 };
 
@@ -39,8 +39,10 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
     return (
         <div style={modalStyles.overlay}>
             <div style={modalStyles.content}>
-                <h3>Update Item {data.id}</h3>
+                <h2>Update</h2>
                 <form onSubmit={handleSubmit}>
+                    <div className="row g-2 d-flex flex-column">
+                    <h6>Title</h6>
                     <input 
                         type="text" 
                         name="title" 
@@ -49,6 +51,7 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
                         onChange={handleChange} 
                         required 
                     />
+                    <h6>Content</h6>
                     <textarea 
                         name="content" 
                         placeholder="Content" 
@@ -56,6 +59,7 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
                         onChange={handleChange} 
                         required
                     />
+                    <h6>Image URL</h6>
                     <input 
                         type="url" 
                         name="url" 
@@ -64,9 +68,10 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
                         onChange={handleChange} 
                         required
                     />
+                    </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '15px' }}>
-                        <button type="button" onClick={onClose} style={{ marginRight: '10px' }}>Cancel</button>
-                        <button type="submit">Update</button>
+                        <button type="button" className="btn btn-outline-secondary" onClick={onClose} style={{ marginRight: '10px' }}>Cancel</button>
+                        <button type="submit" className="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>

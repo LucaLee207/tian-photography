@@ -1,11 +1,8 @@
 
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 .navbar {
+    z-index: 1000;
+    position: fixed;
+    background-color: white;
   /* Fixes the navbar to the top of the viewport */
     top: 0;
     left: 0;
@@ -62,8 +59,6 @@ code {
     width: 100%; /* Line expands to full width for active link */
     background-color: #000; /* Different color for active link */
 }
-
-
 /* Optional: Subtle text color change on hover */
 .navbar-links a:hover {
     color: #000;
