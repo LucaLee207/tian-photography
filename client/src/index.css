@@ -1,5 +1,4 @@
 
-
 .navbar {
     z-index: 1000;
     position: fixed;
@@ -75,6 +74,12 @@
   font-weight: 500;
   font-style: bold;
 }
+.playwrite-no-serif {
+  font-family: "Playwrite NO", cursive;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
 
 
 
@@ -104,5 +109,20 @@
     font-weight: 300;
     color: #EEB76B; /* Subtle color */
 }
+
+.about-img{
+    transform: rotate(-2deg);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+.about-card{
+    
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
 
 
