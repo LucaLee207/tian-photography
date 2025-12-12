@@ -1,10 +1,10 @@
 import React from "react"
-
+import ArtworkList from "../component/ArtworkList"
 
 function Portrait(){
     return(
         <>
-        <h1>This is an Portrait page</h1>
+        <ArtworkList pageCategory="portrait"/>
         </>
     )
 }

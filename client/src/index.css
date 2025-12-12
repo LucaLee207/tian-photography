@@ -120,6 +120,16 @@
 }
 
 
+.admin-button{
+  position: fixed;
+    
+    /* Position it in the bottom right corner */
+    bottom: 30px; /* Distance from the bottom edge */
+    right: 30px;  /* Distance from the right edge */
+    
+    /* Ensure the button is always on top of all other content */
+    z-index: 500;
+}
 
 
 

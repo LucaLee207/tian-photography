@@ -1,10 +1,13 @@
 import React from "react"
-
+import ArtworkList from "../component/ArtworkList"
+import ImageBoard from "../component/ImageBoard"
 
 function MyWorks(){
     return(
         <>
-        <h1>This is an MyWorks page</h1>
+        {/* <ArtworkList pageCategory="myworks"/>
+         */}
+         <ImageBoard/>
         </>
     )
 }

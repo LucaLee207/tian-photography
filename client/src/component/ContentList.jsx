@@ -226,7 +226,7 @@ function ContentList({pageCategory}) {
     return (
         <div className="content-list-container mx-3">
             <div className="mt-5 pt-5 row d-flex justify-content-center align-items-center mb-3">
-                {/* <button 
+                <button 
                     type="button"
                     className="btn btn-outline-primary w-25"
                     onClick={() => setisCreateModalOpen(true)}
@@ -240,7 +240,7 @@ function ContentList({pageCategory}) {
                     onClick={() => handleOrderConfirmed()}
                     style ={{ marginLeft: '10px', marginBottom: '20px' }}>
                     Order Confirmed
-                </button> */}
+                </button>
             </div>
             <CreateEventModal 
                 isOpen={isCreateModalOpen} 
@@ -272,7 +272,7 @@ function ContentList({pageCategory}) {
                         <EventCard event={item} />
                         <EventCard2 event={item} />
                         <div className="row d-flex justify-content-center">
-                        {/* <button
+                        <button
                             type="button"
                             className="btn btn-outline-danger w-25"
                             onClick={() => handleDelete(item)} 
@@ -287,7 +287,7 @@ function ContentList({pageCategory}) {
                             style={{ marginLeft: '20px'}}
                         >
                             Update
-                        </button> */}
+                        </button>
                         </div>
                         
                     </div>
