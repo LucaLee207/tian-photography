@@ -9,7 +9,7 @@ import EventCard2 from './EventCard2';
 const API_URL = 'http://localhost:5000/api/event'; // Adjust if your endpoint is different
 
 
-function ContentList({pageCategory}) {
+function ContentList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
     const [contentItems, setContentItems] = useState([]);
     // 2. State for Loading: Shows a message while waiting for the response
@@ -29,8 +29,6 @@ function ContentList({pageCategory}) {
     // 7. State for draggable items
     const [dragIndex, setDragIndex] = useState(null);
     // 8. Admin features
-    const [userRole, setUserRole] = useState('admin'); // or 'admin'
-    const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
     const isDraggingAllowed = userRole === 'admin' && !isPreviewMode;
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
@@ -229,16 +227,7 @@ function ContentList({pageCategory}) {
     // Render the Board
     return (
         <div className="content-list-container mx-3 mt-5 pt-5">
-            {userRole === 'admin' && (
-                <div className="text-center my-3 admin-button">
-                    <button
-                        className="btn btn-info"
-                        onClick={() => setIsPreviewMode(!isPreviewMode)}
-                    >
-                        {isPreviewMode ? 'Exit Preview Mode' : 'Preview User View'}
-                    </button>
-                </div>
-            )}
+
             {(userRole === 'admin' && !isPreviewMode) &&(
                 <div className="row d-flex justify-content-center align-items-center mb-3">
                     <button 
@@ -277,10 +266,10 @@ function ContentList({pageCategory}) {
                 {contentItems.map((item, index) => (
                     <li 
                     key={index} 
-                    draggable
-                    onDragStart={()=>handleDragStart(index)}
-                    onDragOver={handleDragOver}
-                    onDrop={()=>handleDrop(index)}
+                    draggable={isDraggingAllowed}
+                    onDragStart={isDraggingAllowed ? () => handleDragStart(index) : undefined} // ⬅️ Conditionally set handler
+                    onDragOver={isDraggingAllowed ? handleDragOver : undefined}
+                    onDrop={isDraggingAllowed ? () => handleDrop(index) : undefined}
                     className={index === dragIndex ? "dragging" : ""}>
                         
                     <div key={item.id} className="content-item">

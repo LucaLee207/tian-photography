@@ -12,7 +12,7 @@ import Masonry from '@mui/lab/Masonry';
 const API_URL = 'http://localhost:5000/api/artwork'; // Adjust if your endpoint is different
 
 
-function ArtworkList({pageCategory}) {
+function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
     const [contentItems, setArtworkItems] = useState([]);
     // 2. State for Loading: Shows a message while waiting for the response
@@ -33,8 +33,6 @@ function ArtworkList({pageCategory}) {
     const [dragIndex, setDragIndex] = useState(null);
 
     // 8. Admin features
-    const [userRole, setUserRole] = useState('admin'); // or 'admin'
-    const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
     const isDraggingAllowed = userRole === 'admin' && !isPreviewMode;
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
@@ -231,16 +229,7 @@ function ArtworkList({pageCategory}) {
     // Render the Board
     return (
         <div className="content-list-container mx-3 mt-5 pt-5 ">
-            {userRole === 'admin' && (
-                <div className="text-center my-3 admin-button">
-                    <button
-                        className="btn btn-info"
-                        onClick={() => setIsPreviewMode(!isPreviewMode)}
-                    >
-                        {isPreviewMode ? 'Exit Preview Mode' : 'Preview User View'}
-                    </button>
-                </div>
-            )}
+            
             {(userRole === 'admin' && !isPreviewMode) &&(
                 <div className="row d-flex justify-content-center align-items-center ">
                 <button 

@@ -11,25 +11,38 @@ import Wedding from './pages/Wedding';
 import Activity from './pages/Activity';
 import NoMatch from './pages/NoMatch';
 import {Routes, Route} from "react-router-dom";
-import React from "react";
+import React, { useState, useEffect} from 'react';
 import NavBar from './component/NavBar';
 
 function App() {
+
+  const [userRole, setUserRole] = useState('admin'); // or 'admin'
+  const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
   return (
     <div> 
+      {userRole === 'admin' && (
+                <div className="text-center my-3 admin-button">
+                    <button
+                        className="btn btn-info"
+                        onClick={() => setIsPreviewMode(!isPreviewMode)}
+                    >
+                        {isPreviewMode ? 'Exit Preview Mode' : 'Preview User View'}
+                    </button>
+                </div>
+        )}
       <NavBar/> 
       <main className="main-content ">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/event" element={<Event />}>
-            <Route path="wedding" element={<Wedding />} />
-            <Route path="activity" element={<Activity />} />
-            <Route path="concert" element={<Concert />} />
-            <Route path="travel" element={<Travel/>}/>
+            <Route path="wedding" element={<Wedding userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+            <Route path="activity" element={<Activity userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+            <Route path="concert" element={<Concert userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+            <Route path="travel" element={<Travel userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
           </Route>
-          <Route path="/myworks" element={<MyWorks />} />
-          <Route path="/portrait" element={<Portrait />} />
+          <Route path="/myworks" element={<MyWorks userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/portrait" element={<Portrait userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="*" element={<NoMatch/>} />
         </Routes>
       </main>

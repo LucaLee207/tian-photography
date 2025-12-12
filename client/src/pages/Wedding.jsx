@@ -1,10 +1,10 @@
 import React from "react"
 import ContentList from "../component/ContentList"
 
-function Wedding(){
+function Wedding({userRole, isPreviewMode}){
     return(
         <>
-        <ContentList pageCategory="wedding"/>
+        <ContentList pageCategory="wedding" userRole={userRole} isPreviewMode={isPreviewMode}/>
         </>
     )
 }

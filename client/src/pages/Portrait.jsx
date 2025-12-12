@@ -1,10 +1,10 @@
 import React from "react"
 import ArtworkList from "../component/ArtworkList"
 
-function Portrait(){
+function Portrait({userRole, isPreviewMode}){
     return(
         <>
-        <ArtworkList pageCategory="portrait"/>
+        <ArtworkList pageCategory="portrait" userRole={userRole} isPreviewMode={isPreviewMode}/>
         </>
     )
 }
