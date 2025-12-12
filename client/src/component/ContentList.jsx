@@ -28,6 +28,10 @@ function ContentList({pageCategory}) {
     });
     // 7. State for draggable items
     const [dragIndex, setDragIndex] = useState(null);
+    // 8. Admin features
+    const [userRole, setUserRole] = useState('admin'); // or 'admin'
+    const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
+    const isDraggingAllowed = userRole === 'admin' && !isPreviewMode;
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
     useEffect(() => {
@@ -224,24 +228,36 @@ function ContentList({pageCategory}) {
     }
     // Render the Board
     return (
-        <div className="content-list-container mx-3">
-            <div className="mt-5 pt-5 row d-flex justify-content-center align-items-center mb-3">
-                <button 
-                    type="button"
-                    className="btn btn-outline-primary w-25"
-                    onClick={() => setisCreateModalOpen(true)}
-                    style={{ marginBottom: '20px' }}
-                >
-                    Create New Item
-                </button>
-                <button
-                    type="button"
-                    className="btn btn-outline-primary align-self-center w-25"
-                    onClick={() => handleOrderConfirmed()}
-                    style ={{ marginLeft: '10px', marginBottom: '20px' }}>
-                    Order Confirmed
-                </button>
-            </div>
+        <div className="content-list-container mx-3 mt-5 pt-5">
+            {userRole === 'admin' && (
+                <div className="text-center my-3 admin-button">
+                    <button
+                        className="btn btn-info"
+                        onClick={() => setIsPreviewMode(!isPreviewMode)}
+                    >
+                        {isPreviewMode ? 'Exit Preview Mode' : 'Preview User View'}
+                    </button>
+                </div>
+            )}
+            {(userRole === 'admin' && !isPreviewMode) &&(
+                <div className="row d-flex justify-content-center align-items-center mb-3">
+                    <button 
+                        type="button"
+                        className="btn btn-outline-primary w-25"
+                        onClick={() => setisCreateModalOpen(true)}
+                        style={{ marginBottom: '20px' }}
+                    >
+                        Create New Item
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-outline-primary align-self-center w-25"
+                        onClick={() => handleOrderConfirmed()}
+                        style ={{ marginLeft: '10px', marginBottom: '20px' }}>
+                        Order Confirmed
+                    </button>
+                </div>)
+            }
             <CreateEventModal 
                 isOpen={isCreateModalOpen} 
                 onClose={() => setisCreateModalOpen(false)}
@@ -271,24 +287,27 @@ function ContentList({pageCategory}) {
                         
                         <EventCard event={item} />
                         <EventCard2 event={item} />
-                        <div className="row d-flex justify-content-center">
-                        <button
-                            type="button"
-                            className="btn btn-outline-danger w-25"
-                            onClick={() => handleDelete(item)} 
-                            style={{ marginLeft: '20px'}}
-                        >
-                            Delete
-                        </button>
-                        <button 
-                            type="button"
-                            className="btn btn-outline-warning w-25"
-                            onClick={() => handleUpdateClick(item)} 
-                            style={{ marginLeft: '20px'}}
-                        >
-                            Update
-                        </button>
-                        </div>
+                        {(userRole === 'admin' && !isPreviewMode) &&(
+                            <div className="row d-flex justify-content-center">
+                            
+                            <button
+                                type="button"
+                                className="btn btn-outline-danger w-25"
+                                onClick={() => handleDelete(item)} 
+                                style={{ marginLeft: '20px'}}
+                            >
+                                Delete
+                            </button>
+                            <button 
+                                type="button"
+                                className="btn btn-outline-warning w-25"
+                                onClick={() => handleUpdateClick(item)} 
+                                style={{ marginLeft: '20px'}}
+                            >
+                                Update
+                            </button>
+                            </div>)
+                        }
                         
                     </div>
                 </li>
