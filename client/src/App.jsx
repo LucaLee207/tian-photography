@@ -13,10 +13,11 @@ import NoMatch from './pages/NoMatch';
 import {Routes, Route} from "react-router-dom";
 import React, { useState, useEffect} from 'react';
 import NavBar from './component/NavBar';
+import AdminLoginPage from './component/AdminLoginPage';
 
 function App() {
 
-  const [userRole, setUserRole] = useState('admin'); // or 'admin'
+  const [userRole, setUserRole] = useState('user'); // or 'admin'
   const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
   return (
     <div> 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/myworks" element={<MyWorks userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/portrait" element={<Portrait userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="*" element={<NoMatch/>} />
+          <Route path="/admin" element={<AdminLoginPage setUserRole={setUserRole}/>} />
         </Routes>
       </main>
     </div>

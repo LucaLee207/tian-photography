@@ -131,6 +131,21 @@
     z-index: 500;
 }
 
+.login-background {
+    /* 1. Add the dark overlay via a transparent-to-black gradient */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('./../public/homepage.jpg'); 
+                
+    /* 2. Positioning and Sizing */
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    
+    /* 3. Ensure the element fills the screen */
+    width: 100%;
+    min-height: 100vh;
+}
 
 
 
