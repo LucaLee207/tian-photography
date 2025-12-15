@@ -228,7 +228,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     }
     // Render the Board
     return (
-        <div className="content-list-container mx-3 mt-5 pt-5 ">
+        <div className="page-container content-list-container mx-3 mt-5 pt-5 ">
             
             {(userRole === 'admin' && !isPreviewMode) &&(
                 <div className="row d-flex justify-content-center align-items-center ">
