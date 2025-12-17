@@ -5,10 +5,9 @@ import db from "./src/config/db.js"
 import eventRoutes from "./src/routes/eventRoutes.js" 
 import errorHandling from "./src/middleware/errorHandler.js";
 import artworkRoutes from "./src/routes/artworkRoutes.js";
-import uploadImageRoutes from "./src/routes/uploadImgaeRoutes.js"
-const app = express();
+import imageR2Routes from "./src/routes/imageR2Routes.js";
 const PORT = 5000;
-
+const app = express();
 // Error Handling
 app.use(errorHandling);
 // Middlewares
@@ -17,7 +16,8 @@ app.use(cors());
 // Routes
 app.use("/api", eventRoutes);
 app.use("/api", artworkRoutes);
-app.use("/api", uploadImageRoutes);
+app.use("/api", imageR2Routes);
+
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 

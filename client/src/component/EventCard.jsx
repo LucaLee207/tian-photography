@@ -12,7 +12,7 @@ function EventCard({ event }) {
                         <div className="row g-0 d-flex justify-content-center align-items-center" >
                             <h3 className="col-0 col-lg-1 index-number mx-auto my-auto d-none d-lg-block">{event.position}</h3>
                             <div className="col-12 col-lg-11 " >
-                                <img src="https://imgv3.fotor.com/images/blog-richtext-image/a-shadow-of-a-boy-carrying-the-camera-with-red-sky-behind.jpg" className="img-fluid  object-fit-cover" alt="Card Image"/>
+                                <img src={event.url} className="img-fluid  object-fit-cover" alt="Card Image"/>
                             </div>
                         </div>
                     </div>

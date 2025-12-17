@@ -59,15 +59,7 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
                         onChange={handleChange} 
                         required
                     />
-                    <h6>Image URL</h6>
-                    <input 
-                        type="url" 
-                        name="url" 
-                        placeholder="URL" 
-                        value={data.url} 
-                        onChange={handleChange} 
-                        required
-                    />
+                    
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '15px' }}>
                         <button type="button" className="btn btn-outline-secondary" onClick={onClose} style={{ marginRight: '10px' }}>Cancel</button>

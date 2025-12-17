@@ -5,7 +5,7 @@ import ArtworkList from "../component/ArtworkList"
 function MyWorks({userRole, isPreviewMode}){
     return(
         <>
-        <ArtworkList pageCategory="portrait" userRole={userRole} isPreviewMode={isPreviewMode}/>
+        <ArtworkList pageCategory="myworks" userRole={userRole} isPreviewMode={isPreviewMode}/>
         </>
     )
 }

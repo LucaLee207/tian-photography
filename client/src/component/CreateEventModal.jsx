@@ -18,7 +18,6 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     const [formData, setFormData] = useState({
         title: '',
         content: '',
-        url: ''
     });
 
     const handleChange = (e) => {
@@ -33,18 +32,24 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         
+        const fileInput = e.target.elements.file;
+        const rawFile = fileInput.files[0];
         // Pass the form data up to the parent component for API submission
-        onCreateSubmit(formData);
+        onCreateSubmit({...formData,
+            imageFile: rawFile,
+            tmpFileName: rawFile.name,
+            fileType: rawFile.type
+        });
 
         // Reset the form data after submission
-        setFormData({  title: '', content: '', url: '' });
+        setFormData({  title: '', content: ''});
         
         // Close the modal
         onClose();
     };
     const handleCancel = (e) => {
         // Reset the form data after submission
-        setFormData({ title: '', content: '', url: '' });
+        setFormData({ title: '', content: ''});
         
         // Close the modal
         onClose();
@@ -76,13 +81,10 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
                         onChange={handleChange} 
                         required
                     />
-                    <h6>Image URL</h6>
+                    <h6>Upload Image</h6>
                     <input 
-                        type="url" 
-                        name="url" 
-                        placeholder="URL" 
-                        value={formData.url} 
-                        onChange={handleChange} 
+                        type="file" 
+                        name="file" 
                         required
                     />
                     </div>

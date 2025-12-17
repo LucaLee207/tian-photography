@@ -4,10 +4,10 @@ import CreateEventModal from './CreateEventModal';
 import UpdateEventModal from './UpdateEventModal';
 import EventCard from './EventCard';
 import EventCard2 from './EventCard2';
-
+import axios from 'axios';
 // Define the API endpoint
 const API_URL = 'http://localhost:5000/api/event'; // Adjust if your endpoint is different
-
+const API_URL_R2 = 'http://localhost:5000/api/img-R2-';
 
 function ContentList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
@@ -24,7 +24,6 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     const [updateItems, setUpdateItems] = useState({
         title: '',
         content: '',
-        url: '',
     });
     // 7. State for draggable items
     const [dragIndex, setDragIndex] = useState(null);
@@ -72,14 +71,21 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     // }
     // ========================== CREATE ================================
     const handleCreateSubmit = async (formData) => {
-        formData = {...formData, position: 0, category: pageCategory};
+        const {imageFile, tmpFileName, fileType} = formData;
+        const fileName = `${pageCategory}/${tmpFileName}`
+        
         try {
+            const {data: {url} } = await axios.post(`${API_URL_R2}upload`, {fileName, fileType});
+            await axios.put(url, imageFile, {
+                headers: {"Content-Type": fileType}
+            });
+            const data = {...formData, filename:fileName, position: 0, category: pageCategory, url:`https://pub-2d6a4cb96ef24e38986e5da6015ec8b3.r2.dev/${fileName}`};
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(data),
             });
             
             const result = await response.json(); 
@@ -141,12 +147,14 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     };
     // ========================== DELETE ================================
     const handleDelete = async (item) => {
-        const {id, title} =item;
+        const {id, title, filename} =item;
         // 1. Give the user a chance to confirm the deletion (Highly recommended!)
         if (!window.confirm(`Are you sure you want to delete item ${title}?`)) {
             return; // Stop if the user clicks Cancel
         }
         try {
+            const {data: {deleteUrl}} = await axios.post(`${API_URL_R2}delete`, {key: filename})
+            await axios.delete(deleteUrl);
             const response = await fetch(`${API_URL}/${id}`, {
                 method: 'DELETE',
             });
@@ -273,9 +281,8 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
                     className={index === dragIndex ? "dragging" : ""}>
                         
                     <div key={item.id} className="content-item">
-                        
-                        <EventCard event={item} />
-                        <EventCard2 event={item} />
+                        {(index%2 === 1) && (<EventCard event={item} />)}
+                        {(index%2 === 0) && (<EventCard2 event={item} />)}
                         {(userRole === 'admin' && !isPreviewMode) &&(
                             <div className="row d-flex justify-content-center">
                             

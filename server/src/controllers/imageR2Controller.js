@@ -1,5 +1,5 @@
 // api/get-upload-url.js
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand,DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const r2 = new S3Client({
@@ -11,7 +11,7 @@ const r2 = new S3Client({
   },
 });
 
-export default async function handler(req, res) {
+export async function uploadImg(req, res) {
   const { fileName, fileType } = req.body;
 
   const command = new PutObjectCommand({
@@ -24,4 +24,18 @@ export default async function handler(req, res) {
   const signedUrl = await getSignedUrl(r2, command, { expiresIn: 60 });
 
   res.status(200).json({ url: signedUrl });
+}
+
+export async function deleteImg(req, res) {
+    const { key } = req.body; // Receive the key from the frontend
+
+    const command = new DeleteObjectCommand({
+        Bucket: "tianphotography",
+        Key: key,
+    });
+
+    // Generate a temporary link (valid for 60 seconds)
+    const url = await getSignedUrl(r2, command, { expiresIn: 60 });
+
+    res.status(200).json({ deleteUrl: url });
 }

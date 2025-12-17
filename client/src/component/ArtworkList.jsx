@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-
+import axios from 'axios';
 import CreateArtworkModal from './CreateArtworkModal';
 import UpdateArtworkModal from './UpdateArtworkModal';
 import { styled } from '@mui/material/styles';
@@ -10,7 +10,7 @@ import Masonry from '@mui/lab/Masonry';
 
 // Define the API endpoint
 const API_URL = 'http://localhost:5000/api/artwork'; // Adjust if your endpoint is different
-
+const API_URL_R2 = 'http://localhost:5000/api/img-R2-';
 
 function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
@@ -76,14 +76,20 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // }
     // ========================== CREATE ================================
     const handleCreateSubmit = async (formData) => {
-        formData = {...formData, position: 0, category: pageCategory};
+        const {imageFile, tmpFileName, fileType} = formData;
+        const fileName = `${pageCategory}/${tmpFileName}`
         try {
+            const {data: {url} } = await axios.post(`${API_URL_R2}upload`, {fileName, fileType});
+            await axios.put(url, imageFile, {
+                headers: {"Content-Type": fileType}
+            });
+            const data = {filename: fileName, position:0, category:pageCategory, url:`https://pub-2d6a4cb96ef24e38986e5da6015ec8b3.r2.dev/${fileName}`};
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(data),
             });
             
             const result = await response.json(); 
@@ -145,12 +151,14 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     };
     // ========================== DELETE ================================
     const handleDelete = async (item) => {
-        const {id, title} =item;
+        const {id, filename} =item;
         // 1. Give the user a chance to confirm the deletion (Highly recommended!)
-        if (!window.confirm(`Are you sure you want to delete item ${title}?`)) {
+        if (!window.confirm(`Are you sure you want to delete item ${filename}?`)) {
             return; // Stop if the user clicks Cancel
         }
         try {
+            const {data: {deleteUrl}} = await axios.post(`${API_URL_R2}delete`, {key: filename})
+            await axios.delete(deleteUrl);
             const response = await fetch(`${API_URL}/${id}`, {
                 method: 'DELETE',
             });
@@ -280,8 +288,8 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
                         {/* Content is now inside the Paper container */}
                         <div className="content-item position-relative">
                             <img
-                                src={`./${item.position+1}.jpg`}
-                                alt={item.title}
+                                src={item.url}
+                                alt={item.filename}
                                 loading="lazy"
                                 className="img-fluid" 
                                 style={{
@@ -294,18 +302,11 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
                             <>
                                 <button
                                     type="button"
-                                    className="btn btn-outline-danger w-25 position-absolute top-0 start-0 m-3"
+                                    className="btn btn-outline-danger w-25 position-absolute top-0 start-0 m-1"
                                     onClick={() => handleDelete(item)} 
                                 >
                                     Delete
                                     
-                                </button>
-                                <button 
-                                    type="button"
-                                    className="btn btn-outline-warning w-25 position-absolute top-0 end-0 m-3"
-                                    onClick={() => handleUpdateClick(item)} 
-                                >
-                                    Update
                                 </button>
                             </>)
                             }

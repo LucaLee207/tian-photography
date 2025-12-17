@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 // You would replace this with your actual CSS or a styling library
+
 const modalStyles = {
     overlay: {
         position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
@@ -31,11 +32,17 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         
+        const fileInput = e.target.elements.file;
+        const rawFile = fileInput.files[0];
         // Pass the form data up to the parent component for API submission
-        onCreateSubmit(formData);
+        onCreateSubmit({
+            imageFile: rawFile,
+            tmpFileName: rawFile.name,
+            fileType: rawFile.type
+        });
 
         // Reset the form data after submission
-        setFormData({ url: '' });
+        // setFormData({ url: '' });
         
         // Close the modal
         onClose();
@@ -57,13 +64,9 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
                 <h3>Create New Item</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="row g-2 d-flex flex-column">
-                    <h6>Image URL</h6>
-                    <input 
-                        type="url" 
-                        name="url" 
-                        placeholder="URL" 
-                        value={formData.url} 
-                        onChange={handleChange} 
+                    <input
+                        type="file"
+                        name="file"
                         required
                     />
                     </div>
