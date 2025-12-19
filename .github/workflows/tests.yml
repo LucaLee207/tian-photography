@@ -1,0 +1,33 @@
+name: Vitest CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Vitest tests
+        run: npm test
+        env:
+          # Add any dummy env variables your code needs to not crash
+          R2_ENDPOINT: https://dummy.endpoint
+          R2_ACCESS_KEY: dummy_key
+          R2_SECRET_KEY: dummy_secret
+          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
