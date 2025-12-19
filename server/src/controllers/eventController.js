@@ -29,7 +29,7 @@ export const getAllEvents = async (req, res, next) =>{
 export const getEventById = async (req, res, next) =>{
     try {
         const event = await getEventByIdService(req.params.id);
-        if (!event) return handleResponse(res, 404, "User not found");
+        if (!event) return handleResponse(res, 404, "Event not found");
         handleResponse(res, 200, "Event fetched successfully", event);
     } catch (err) {
         next(err);
@@ -38,6 +38,8 @@ export const getEventById = async (req, res, next) =>{
 export const updateEvent = async (req, res, next) =>{
     const {title, content} = req.body;
     try {
+        const event = await getEventByIdService(req.params.id);
+        if (!event) return handleResponse(res, 404, "Event not found");
         const updatedEvent = await updateEventService(req.params.id, title, content);
         handleResponse(res, 200, "Event updated successfully", updatedEvent);
     } catch (err) {

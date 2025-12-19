@@ -35,15 +35,15 @@ export const getArtworkById = async (req, res, next) =>{
         next(err);
     };
 };
-export const updateArtwork = async (req, res, next) =>{
-    const { url} = req.body;
-    try {
-        const updatedArtwork = await updateArtworkService(req.params.id, url);
-        handleResponse(res, 200, "Artwork updated successfully", updatedArtwork);
-    } catch (err) {
-        next(err);
-    };
-};
+// export const updateArtwork = async (req, res, next) =>{
+//     const { url} = req.body;
+//     try {
+//         const updatedArtwork = await updateArtworkService(req.params.id, url);
+//         handleResponse(res, 200, "Artwork updated successfully", updatedArtwork);
+//     } catch (err) {
+//         next(err);
+//     };
+// };
 
 export const deleteArtwork = async (req, res, next) =>{
     try {
