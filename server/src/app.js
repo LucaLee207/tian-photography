@@ -18,7 +18,12 @@ app.use("/api", eventRoutes);
 app.use("/api", artworkRoutes);
 app.use("/api", imageR2Routes);
 app.use("/api", loginRoutes);
-
+app.get('/', (req, res) => {
+  res.json({ 
+    message: "Backend is running!", 
+    database: "Neon Connected" 
+  });
+});
 
 // Error Handling
 app.use(errorHandling);
