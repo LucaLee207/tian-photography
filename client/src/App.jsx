@@ -19,6 +19,34 @@ function App() {
 
   const [userRole, setUserRole] = useState('user'); // or 'admin'
   const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
+
+  useEffect(() => {
+    async function verifyToken(){
+      try{
+        const token = localStorage.getItem('adminToken');
+        const response = await fetch('http://localhost:5000/api/verify-token', {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`, // This is the standard format
+              'Content-Type': 'application/json'
+          }
+        });
+        if (response.ok){
+          const data = await response.json()
+          if (data.authenticated){
+            setUserRole('admin');
+          }
+        }
+      }catch(error){
+        console.error("Network error:", error);
+        // alert("Could not connect to the server");
+        // alert(error.message);
+      }
+      
+    };
+    verifyToken();
+  }, [setUserRole]);
+
   return (
     <div> 
       {userRole === 'admin' && (
@@ -45,7 +73,7 @@ function App() {
           <Route path="/myworks" element={<MyWorks userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/portrait" element={<Portrait userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="*" element={<NoMatch/>} />
-          <Route path="/admin" element={<AdminLoginPage setUserRole={setUserRole}/>} />
+          <Route path="/tiansphotography0905-login" element={<AdminLoginPage setUserRole={setUserRole}/>} />
         </Routes>
       </main>
     </div>

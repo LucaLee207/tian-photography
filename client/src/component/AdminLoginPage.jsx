@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 function AdminLoginPage({setUserRole}) {
-  const LOGIN_URL = 'http://localhost:5000/login';
+  const LOGIN_URL = 'http://localhost:5000/api/login';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -34,8 +34,7 @@ function AdminLoginPage({setUserRole}) {
         // Storing in localStorage is simple, but session storage or an HTTP-only cookie 
         // set by the backend is often preferred for security.
         localStorage.setItem('adminToken', token); 
-        
-        alert('Login Successful! Token stored.');
+        // alert('Login Successful! Token stored.');
         setUserRole("admin");
         navigate("/");
         // 4. Redirect the Admin to the main admin/edit page

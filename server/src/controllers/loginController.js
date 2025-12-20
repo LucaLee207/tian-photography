@@ -1,35 +1,48 @@
 
-
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 export const loginAdmin = async(req, res) => {
-    const { email, password } = req.body;
 
-    // AVOID THIS: This is for demonstration of the logic fix only.
-    const storedEmail = process.env.LOGIN_EMAIL;
-    const storedHash = process.env.LOGIN_PASSWORD; // Assume this holds a bcrypt hash
+    try{
+        const { email, password } = req.body;
+        const storedEmail = process.env.LOGIN_EMAIL;
+        if (email !== storedEmail) {
+            return res.status(401).json({ message: "Wrong email or password" });
+        }
 
-    if (email !== storedEmail) {
-        // Return generic error for security
-        return res.status(401).json({ message: "Invalid credentials." });
+        // Step 2: SECURELY compare the submitted password against the stored hash
+        const match = bcrypt.compare(password, process.env.LOGIN_PASSWORD);
+        if (match) {
+            // Step 3: Login Success - Generate a secure token (JWT)
+            const token = jwt.sign({username: email, role: 'admin'}, process.env.JWT_SECRET, {expiresIn: '24h'}); 
+
+            return res.status(200).json({
+                message: "Login Successfully",
+                authenticated: true,
+                token: token // Send the token back to the client
+            });
+        } else {
+            // Step 4: Login Failure
+            return res.status(401).json({ message: "Wrong email or password" });
+        }
+    }catch(err){
+        next(err);
     }
-
-    // Step 2: SECURELY compare the submitted password against the stored hash
-    // const match = await bcrypt.compare(password, storedHash);
     
-    // TEMPORARY: Assuming the password is NOT hashed for this example only!
-    const match = (password === process.env.LOGIN_PASSWORD);
+}
 
-
-    if (match) {
-        // Step 3: Login Success - Generate a secure token (JWT)
-        // const token = generateAdminToken(storedEmail); 
-
-        return res.status(200).json({
-            message: "Login Successfully",
-            authenticated: true,
-            // token: token // Send the token back to the client
-        });
-    } else {
-        // Step 4: Login Failure
-        return res.status(401).json({ message: "Invalid credentials." });
+export const verifyToken = async(req, res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(!token){
+        return res.status(401).json({ message: "No token, user mode", authenticated: false });
+    }
+    try{
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
+        return res.status(200).json({message: "token vaild, admin mode", authenticated:true });
+    }
+    catch(err){
+        return res.status(403).json({message: "token is invalid or expired, user mode", authenticated:false});
     }
 }
+

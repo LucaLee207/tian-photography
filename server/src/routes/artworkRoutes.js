@@ -1,5 +1,5 @@
 import express from "express";
-import { createArtwork, deleteArtwork, getAllArtworks, getArtworkById, updateArtwork, orderArtworks } from "../controllers/artworkController.js";
+import { createArtwork, deleteArtwork, getAllArtworks, getArtworkById, orderArtworks } from "../controllers/artworkController.js";
 
 const router = express.Router();
 
