@@ -1,12 +1,25 @@
 import {Pool} from 'pg';
+// =============dev===============
 
-const pool = new Pool({
+var pool;
+if (process.env.NODE_ENV !== 'production') {
+    pool = new Pool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     host: process.env.DB_HOST,
     port: 5433,
     database: process.env.DB_NAME
 });
+}else{
+    pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    // Recommended for Neon/Serverless: 
+    // Helps clean up old connections that might stay "hanging" after a sleep
+    idleTimeoutMillis: 30000, 
+    connectionTimeoutMillis: 5000, 
+});
+}
+
 
 export const initializeDatabase = async () => {
     const schemaQuery = `

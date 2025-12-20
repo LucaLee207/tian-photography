@@ -1,12 +1,12 @@
 import express from "express"
 import 'dotenv/config.js';
 import cors from "cors"
-import db from "./src/config/db.js"
-import eventRoutes from "./src/routes/eventRoutes.js" 
-import errorHandling from "./src/middleware/errorHandler.js";
-import artworkRoutes from "./src/routes/artworkRoutes.js";
-import imageR2Routes from "./src/routes/imageR2Routes.js";
-import loginRoutes from "./src/routes/loginRoutes.js"
+import db from "./config/db.js"
+import eventRoutes from "./routes/eventRoutes.js" 
+import errorHandling from "./middleware/errorHandler.js";
+import artworkRoutes from "./routes/artworkRoutes.js";
+import imageR2Routes from "./routes/imageR2Routes.js";
+import loginRoutes from "./routes/loginRoutes.js"
 
 const app = express();
 

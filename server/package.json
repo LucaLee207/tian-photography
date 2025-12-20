@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "node --env-file=.env api/index.js",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
