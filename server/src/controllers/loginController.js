@@ -1,17 +1,19 @@
 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+
 export const loginAdmin = async(req, res) => {
 
     try{
         const { email, password } = req.body;
         const storedEmail = process.env.LOGIN_EMAIL;
+        const hashedPassword = process.env.LOGIN_HASHED_PASSWORD;
         if (email !== storedEmail) {
             return res.status(401).json({ message: "Wrong email or password" });
         }
 
         // Step 2: SECURELY compare the submitted password against the stored hash
-        const match = bcrypt.compare(password, process.env.LOGIN_PASSWORD);
+        const match = await bcrypt.compare(password, hashedPassword);
         if (match) {
             // Step 3: Login Success - Generate a secure token (JWT)
             const token = jwt.sign({username: email, role: 'admin'}, process.env.JWT_SECRET, {expiresIn: '24h'}); 
@@ -26,7 +28,7 @@ export const loginAdmin = async(req, res) => {
             return res.status(401).json({ message: "Wrong email or password" });
         }
     }catch(err){
-        next(err);
+        return res.status(500).json({ message: "Internal server error" });
     }
     
 }
