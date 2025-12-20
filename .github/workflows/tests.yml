@@ -45,12 +45,11 @@ jobs:
           R2_ENDPOINT: https://dummy.endpoint
           R2_ACCESS_KEY: dummy_key
           R2_SECRET_KEY: dummy_secret
-          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
           DB_HOST: localhost
           DB_USER: postgres
           DB_PASS: password123
           DB_NAME: test_db
           LOGIN_EMAIL: dummy_login_email
-          LOGIN_HASHED_PASSWORD: dummy_login_hashed_password
-          LOGIN_PASSWORD: dummy_login_password
-          JWT_SECRET: dummy_jwt_key
+          LOGIN_HASHED_PASSWORD: $2b$10$HRQZXGFGXBkxMRxsEsc/iuMT.WIiupiAqZi2dm71e4mijnTUsxHta
+          LOGIN_PASSWORD: dummy_password
+          JWT_SECRET: dummy_secret
