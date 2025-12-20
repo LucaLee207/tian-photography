@@ -9,7 +9,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_PASSWORD: password123
+        ports:
+          - 5433:5432 # Maps GitHub's 5432 to your app's 5433
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,3 +46,11 @@ jobs:
           R2_ACCESS_KEY: dummy_key
           R2_SECRET_KEY: dummy_secret
           DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+          DB_HOST: localhost
+          DB_USER: postgres
+          DB_PASS: password123
+          DB_NAME: test_db
+          LOGIN_EMAIL: dummy_login_email
+          LOGIN_HASHED_PASSWORD: dummy_login_hashed_password
+          LOGIN_PASSWORD: dummy_login_password
+          JWT_SECRET: dummy_jwt_key
