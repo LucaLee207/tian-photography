@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import request from 'supertest';
-import app from '../app.js';
+import app from '.././src/app.js';
 
 // 1. Mock the AWS SDK and the Presigner
 vi.mock('@aws-sdk/client-s3', () => {

@@ -1,6 +1,6 @@
 import { expect, it, describe, vi, beforeEach } from 'vitest';
 import request from 'supertest';
-import app from '../app.js';
+import app from '.././src/app.js';
 
 describe('Login Features', () => {
   beforeEach(() => {

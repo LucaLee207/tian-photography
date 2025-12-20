@@ -1,7 +1,7 @@
 
 import { expect, it, describe, vi, beforeEach } from 'vitest';
 import request from 'supertest';
-import app from '../app.js';
+import app from '.././src/app.js';
 // import db from '../src/model/eventModel.js';
 
 // 1. Tell Jest to mock the db module
