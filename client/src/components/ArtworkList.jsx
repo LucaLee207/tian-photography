@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry'; 
 
 
-const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api'
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api'
 function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
     const [contentItems, setArtworkItems] = useState([]);

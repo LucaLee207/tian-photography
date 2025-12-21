@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 function AdminLoginPage({setUserRole}) {
-  const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api'
+  const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

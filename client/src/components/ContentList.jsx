@@ -10,7 +10,7 @@ import axios from 'axios';
 // const API_URL_R2 = 'http://localhost:5000/api/img-R2-';
 // const API_URL = 'https://tian-photography-6kwc.vercel.app/api/event'; 
 // const API_URL_R2 = 'https://tian-photography-6kwc.vercel.app/api/img-R2-';
-const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api';
 
 function ContentList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
