@@ -1,5 +1,5 @@
 import React from "react"
-import ContentList from "../component/ContentList"
+import ContentList from "../components/ContentList"
 
 function Concert({userRole, isPreviewMode}){
     return(

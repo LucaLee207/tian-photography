@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 function AdminLoginPage({setUserRole}) {
-  const LOGIN_URL = 'http://localhost:5000/api/login';
+  const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,7 +21,7 @@ function AdminLoginPage({setUserRole}) {
 
     try {
       // 1. Send Credentials to the Backend
-      const response = await axios.post(LOGIN_URL, {
+      const response = await axios.post(`${API_URL}/login`, {
         email: email,
         password: password,
       });

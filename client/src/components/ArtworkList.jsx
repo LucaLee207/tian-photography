@@ -4,14 +4,12 @@ import CreateArtworkModal from './CreateArtworkModal';
 import UpdateArtworkModal from './UpdateArtworkModal';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-// ⬇️ Import the Masonry component from MUI Lab ⬇️
+
 import Masonry from '@mui/lab/Masonry'; 
 
 
 // Define the API endpoint
-const API_URL = 'http://localhost:5000/api/artwork'; // Adjust if your endpoint is different
-const API_URL_R2 = 'http://localhost:5000/api/img-R2-';
-
+const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api'
 function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
     const [contentItems, setArtworkItems] = useState([]);
@@ -39,7 +37,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     useEffect(() => {
         async function fetchArtwork() {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(`${API_URL}/artwork`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -79,12 +77,12 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
         const {imageFile, tmpFileName, fileType} = formData;
         const fileName = `${pageCategory}/${tmpFileName}`
         try {
-            const {data: {url} } = await axios.post(`${API_URL_R2}upload`, {fileName, fileType});
+            const {data: {url} } = await axios.post(`${API_URL}/img-R2-upload`, {fileName, fileType});
             await axios.put(url, imageFile, {
                 headers: {"Content-Type": fileType}
             });
             const data = {filename: fileName, position:0, category:pageCategory, url:`https://pub-2d6a4cb96ef24e38986e5da6015ec8b3.r2.dev/${fileName}`};
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/artwork`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,7 +116,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     const handleUpdate = async (formData) => {
         const {id} = formData;
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
+            const response = await fetch(`${API_URL}/artwork/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -157,9 +155,9 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
             return; // Stop if the user clicks Cancel
         }
         try {
-            const {data: {deleteUrl}} = await axios.post(`${API_URL_R2}delete`, {key: filename})
+            const {data: {deleteUrl}} = await axios.post(`${API_URL}/img-R2-delete`, {key: filename})
             await axios.delete(deleteUrl);
-            const response = await fetch(`${API_URL}/${id}`, {
+            const response = await fetch(`${API_URL}/artwork/${id}`, {
                 method: 'DELETE',
             });
 
@@ -204,7 +202,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
         const ids = contentItems.map(item => item.id);
         
         try {
-            const response = await fetch(`${API_URL}/order`, {
+            const response = await fetch(`${API_URL}/artwork/order`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

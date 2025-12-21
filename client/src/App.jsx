@@ -12,19 +12,19 @@ import Activity from './pages/Activity';
 import NoMatch from './pages/NoMatch';
 import {Routes, Route} from "react-router-dom";
 import React, { useState, useEffect} from 'react';
-import NavBar from './component/NavBar';
-import AdminLoginPage from './component/AdminLoginPage';
+import NavBar from './components/NavBar';
+import AdminLoginPage from './components/AdminLoginPage';
 
 function App() {
 
   const [userRole, setUserRole] = useState('user'); // or 'admin'
   const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
-
+  const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api';
   useEffect(() => {
     async function verifyToken(){
       try{
         const token = localStorage.getItem('adminToken');
-        const response = await fetch('http://localhost:5000/api/verify-token', {
+        const response = await fetch(`${API_URL}/verify-token`, {
           method: 'GET',
           headers: {
               'Authorization': `Bearer ${token}`, // This is the standard format

@@ -1,5 +1,5 @@
 import React from "react"
-import ArtworkList from "../component/ArtworkList"
+import ArtworkList from "../components/ArtworkList"
 
 function Portrait({userRole, isPreviewMode}){
     return(
