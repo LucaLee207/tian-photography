@@ -2,7 +2,6 @@
 import './App.css';
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Event from "./pages/Event";
 import MyWorks from './pages/MyWorks';
 import Portrait from './pages/Portrait';
 import Concert from './pages/Concert';
@@ -64,12 +63,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/event" element={<Event />}>
-            <Route path="wedding" element={<Wedding userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-            <Route path="activity" element={<Activity userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-            <Route path="concert" element={<Concert userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-            <Route path="travel" element={<Travel userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
-          </Route>
+          <Route path="/wedding" element={<Wedding userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/activity" element={<Activity userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/concert" element={<Concert userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/travel" element={<Travel userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
           <Route path="/myworks" element={<MyWorks userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/portrait" element={<Portrait userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="*" element={<NoMatch/>} />

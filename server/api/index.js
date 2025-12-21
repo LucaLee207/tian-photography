@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
     // 1. Initialize the DB tables first
     await initializeDatabase();
 
-    // 2. Start the Express server
+    // 2. Start the Express server 
     app.listen(PORT, () => {
     console.log(`Backend server listening on port ${PORT}`)
     });

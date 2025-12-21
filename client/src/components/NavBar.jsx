@@ -39,8 +39,8 @@ function NavBar() {
             {/* LEFT LINKS */}
             <Link to="/" className={currentPath==='/' ? 'active':''}>Home</Link>
             <Link to="/portrait" className={currentPath==='/portrait' ? 'active':''}>Portrait</Link>
-            <Link to="/event/wedding" className={currentPath==='/event/wedding' ? 'active':''}>Wedding</Link>
-            <Link to="/event/concert" className={currentPath==='/event/concert' ? 'active':''}>Concert</Link>
+            <Link to="/wedding" className={currentPath==='/wedding' ? 'active':''}>Wedding</Link>
+            <Link to="/concert" className={currentPath==='/concert' ? 'active':''}>Concert</Link>
             
             <div className="navbar-brand mb-1 mx-3 bodoni-moda-serif"> 
                 <h1>TIAN</h1>
@@ -49,8 +49,8 @@ function NavBar() {
             {/* The Logo is already placed in the center (navbar-brand) */}
             
             {/* RIGHT LINKS */}
-            <Link to="/event/travel" className={currentPath==='/event/travel' ? 'active':''}>Travel</Link>
-            <Link to="/event/activity" className={currentPath==='/event/activity' ? 'active':''}>Activity</Link>
+            <Link to="/travel" className={currentPath==='/travel' ? 'active':''}>Travel</Link>
+            <Link to="/activity" className={currentPath==='/activity' ? 'active':''}>Activity</Link>
             <Link to="/myworks" className={currentPath==='/myworks' ? 'active':''}>MyWorks</Link>
             <Link to="/about" className={currentPath==='/about' ? 'active':''}>About</Link>
         </div>
@@ -73,10 +73,10 @@ function NavBar() {
                 {/* List all links here for the mobile view */}
                 <Link to="/" className={`nav-link ${currentPath==='/' ? 'active':''}`}>Home</Link>
                 <Link to="/portrait" className={`nav-link ${currentPath==='/portrait' ? 'active':''}`}>Portrait</Link>
-                <Link to="/event/wedding" className={`nav-link ${currentPath==='/event/wedding' ? 'active':''}`}>Wedding</Link>
-                <Link to="/event/concert" className={`nav-link ${currentPath==='/event/concert' ? 'active':''}`}>Concert</Link>
-                <Link to="/event/travel" className={`nav-link ${currentPath==='/event/travel' ? 'active':''}`}>Travel</Link>
-                <Link to="/event/activity" className={`nav-link ${currentPath==='/event/activity' ? 'active':''}`}>Activity</Link>
+                <Link to="/wedding" className={`nav-link ${currentPath==='/wedding' ? 'active':''}`}>Wedding</Link>
+                <Link to="/concert" className={`nav-link ${currentPath==='/concert' ? 'active':''}`}>Concert</Link>
+                <Link to="/travel" className={`nav-link ${currentPath==='/travel' ? 'active':''}`}>Travel</Link>
+                <Link to="/activity" className={`nav-link ${currentPath==='/activity' ? 'active':''}`}>Activity</Link>
                 <Link to="/myworks" className={`nav-link ${currentPath==='/myworks' ? 'active':''}`}>MyWorks</Link>
                 <Link to="/about" className={`nav-link ${currentPath==='/about' ? 'active':''}`}>About</Link>
             </div>
