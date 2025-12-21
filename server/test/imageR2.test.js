@@ -5,9 +5,23 @@ import app from '.././src/app.js';
 // 1. Mock the AWS SDK and the Presigner
 vi.mock('@aws-sdk/client-s3', () => {
   return {
-    S3Client: vi.fn(() => ({})), // Return a dummy object
-    PutObjectCommand: vi.fn(),
-    DeleteObjectCommand: vi.fn(),
+    // S3Client must return an object with a .send() method
+    S3Client: vi.fn().mockImplementation(function() {
+      return {
+        send: vi.fn().mockResolvedValue({ $metadata: { httpStatusCode: 200 } }),
+      };
+    }),
+
+    // Commands must be "constructable" functions
+    PutObjectCommand: vi.fn().mockImplementation(function(args) {
+      this.args = args; // This allows 'new' to work
+      return this;
+    }),
+
+    DeleteObjectCommand: vi.fn().mockImplementation(function(args) {
+      this.args = args;
+      return this;
+    }),
   };
 });
 
