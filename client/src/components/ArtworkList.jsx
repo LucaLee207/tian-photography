@@ -31,7 +31,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     const isDraggingAllowed = userRole === 'admin' && !isPreviewMode;
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
-    useEffect((pageCategory) => {
+    useEffect(() => {
         async function fetchArtwork() {
             try {
                 const response = await fetch(`${API_URL}/artwork`);
