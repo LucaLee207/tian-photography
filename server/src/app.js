@@ -13,7 +13,7 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://tian-photography.pages.dev', 'https://tian-photography.com'],
+  origin: ['http://localhost:3000', 'https://tian-photography.pages.dev', 'https://www.tians-photography.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
