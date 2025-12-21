@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 
 import CreateEventModal from './CreateEventModal';
 import UpdateEventModal from './UpdateEventModal';
@@ -58,7 +58,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
         }
 
         fetchContent();
-    }, []); // Empty dependency array ensures this runs only once
+    }, [pageCategory]); // Empty dependency array ensures this runs only once
 
     // 2. Conditional Rendering
     if (isLoading) {
@@ -82,7 +82,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
             await axios.put(url, imageFile, {
                 headers: {"Content-Type": fileType}
             });
-            const data = {...formData, filename:fileName, position: 0, category: pageCategory, url:`https://pub-2d6a4cb96ef24e38986e5da6015ec8b3.r2.dev/${fileName}`};
+            const data = {...formData, filename:fileName, position: 0, category: pageCategory, url:`https://img.tians-photography.com/${fileName}`};
             const response = await fetch(`${API_URL}/event`, {
                 method: 'POST',
                 headers: {

@@ -1,4 +1,3 @@
-import React from 'react';
 
 // You would replace this with your actual CSS or a styling library
 const modalStyles = {

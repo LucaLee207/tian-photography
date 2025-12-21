@@ -1,14 +1,11 @@
-import React, { useState, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 import axios from 'axios';
 import CreateArtworkModal from './CreateArtworkModal';
 import UpdateArtworkModal from './UpdateArtworkModal';
-import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-
 import Masonry from '@mui/lab/Masonry'; 
 
 
-// Define the API endpoint
 const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api'
 function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
@@ -34,7 +31,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     const isDraggingAllowed = userRole === 'admin' && !isPreviewMode;
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
-    useEffect(() => {
+    useEffect((pageCategory) => {
         async function fetchArtwork() {
             try {
                 const response = await fetch(`${API_URL}/artwork`);
@@ -58,7 +55,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
         }
 
         fetchArtwork();
-    }, []); // Empty dependency array ensures this runs only once
+    }, [pageCategory]); // Empty dependency array ensures this runs only once
 
     // 2. Conditional Rendering
     if (isLoading) {
@@ -81,7 +78,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
             await axios.put(url, imageFile, {
                 headers: {"Content-Type": fileType}
             });
-            const data = {filename: fileName, position:0, category:pageCategory, url:`https://pub-2d6a4cb96ef24e38986e5da6015ec8b3.r2.dev/${fileName}`};
+            const data = {filename: fileName, position:0, category:pageCategory, url:`https://img.tians-photography.com/${fileName}`};
             const response = await fetch(`${API_URL}/artwork`, {
                 method: 'POST',
                 headers: {
@@ -109,10 +106,10 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
         }
     };
     // ========================== UPDATE ================================
-    const handleUpdateClick = (item) =>{
-        setUpdateItems(item);
-        setisUpdateModalOpen(true);
-    }
+    // const handleUpdateClick = (item) =>{
+    //     setUpdateItems(item);
+    //     setisUpdateModalOpen(true);
+    // }
     const handleUpdate = async (formData) => {
         const {id} = formData;
         try {

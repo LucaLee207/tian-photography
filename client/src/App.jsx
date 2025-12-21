@@ -13,12 +13,12 @@ import {Routes, Route} from "react-router-dom";
 import React, { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import AdminLoginPage from './components/AdminLoginPage';
-
+const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api';
 function App() {
 
   const [userRole, setUserRole] = useState('user'); // or 'admin'
   const [isPreviewMode, setIsPreviewMode] = useState(false); // Controls the view
-  const API_URL = process.env.BACKEND_URL || 'http://localhost:5000/api';
+  
   useEffect(() => {
     async function verifyToken(){
       try{
@@ -44,7 +44,7 @@ function App() {
       
     };
     verifyToken();
-  }, [setUserRole]);
+  }, []);
 
   return (
     <div> 

@@ -1,6 +1,3 @@
-import React, { useState } from 'react';
-
-// You would replace this with your actual CSS or a styling library
 
 const modalStyles = {
     overlay: {
@@ -16,17 +13,17 @@ const modalStyles = {
 
 function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     // 1. State for Form Inputs
-    const [formData, setFormData] = useState({
-        url: ''
-    });
+    // const [formData, setFormData] = useState({
+    //     url: ''
+    // });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData(prevData => ({
+    //         ...prevData,
+    //         [name]: value,
+    //     }));
+    // };
 
     // 2. Handle Submission Logic
     const handleSubmit = (e) => {
@@ -49,7 +46,7 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     };
     const handleCancel = (e) => {
         // Reset the form data after submission
-        setFormData({  url: '' });
+        // setFormData({  url: '' });
         
         // Close the modal
         onClose();

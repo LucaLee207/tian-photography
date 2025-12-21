@@ -1,4 +1,4 @@
-import {react} from 'react';
+
 
 function EventCard({ event }) {
     return (
@@ -12,7 +12,7 @@ function EventCard({ event }) {
                         <div className="row g-0 d-flex justify-content-center align-items-center" >
                             <h3 className="col-0 col-lg-1 index-number mx-auto my-auto d-none d-lg-block">{event.position}</h3>
                             <div className="col-12 col-lg-11 " >
-                                <img src={event.url} className="img-fluid  object-fit-cover" alt="Card Image"/>
+                                <img src={event.url} className="img-fluid  object-fit-cover" alt={event.filename}/>
                             </div>
                         </div>
                     </div>
