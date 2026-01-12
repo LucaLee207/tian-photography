@@ -13,6 +13,7 @@ import {Routes, Route} from "react-router-dom";
 import React, { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import AdminLoginPage from './components/AdminLoginPage';
+import EventDetail from './pages/EventDetail';
 const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api';
 function App() {
 
@@ -67,6 +68,10 @@ function App() {
           <Route path="/activity" element={<Activity userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/concert" element={<Concert userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/travel" element={<Travel userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
+          <Route path="/wedding/:id" element={<EventDetail pageCategory="wedding" userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/activity/:id" element={<EventDetail pageCategory="activity" userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/concert/:id" element={<EventDetail pageCategory="concert" userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/travel/:id" element={<EventDetail pageCategory="travel" userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
           <Route path="/myworks" element={<MyWorks userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/portrait" element={<Portrait userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="*" element={<NoMatch/>} />

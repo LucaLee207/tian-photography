@@ -1,5 +1,5 @@
 // api/get-upload-url.js
-import { S3Client, PutObjectCommand,DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand,DeleteObjectCommand, ListObjectsV2Command, DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const r2 = new S3Client({
@@ -39,3 +39,33 @@ export async function deleteImg(req, res) {
 
     res.status(200).json({ deleteUrl: url });
 }
+
+export const deleteFolderByPrefix = async (req, res) => {
+    const { prefix } = req.body; 
+
+    try {
+        const listParams = {
+            Bucket: "tianphotography",
+            Prefix: prefix,
+        };
+        const listedObjects = await r2.send(new ListObjectsV2Command(listParams));
+        if (!listedObjects.Contents || listedObjects.Contents.length === 0) {
+            return res.status(200).json({ message: `No objects found with prefix ${prefix}` });
+        }
+        
+        const deleteParams = {
+            Bucket: "tianphotography",
+            Delete: {
+                Objects: listedObjects.Contents.map(({ Key }) => ({ Key })),
+            },
+        };
+
+        // 3. Execute batch delete
+        await r2.send(new DeleteObjectsCommand(deleteParams));
+
+        res.status(200).json({ message: `Successfully deleted all objects in ${prefix}` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to delete objects from R2" });
+    }
+};

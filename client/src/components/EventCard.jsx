@@ -1,6 +1,6 @@
 
-
-function EventCard({ event }) {
+import { Link } from 'react-router-dom';
+function EventCard({ event, category }) {
     return (
         <>
         <div className="mx-0 my-3">
@@ -11,9 +11,10 @@ function EventCard({ event }) {
                     <div className="col-12 col-lg-6 my-auto px-3" >
                         <div className="row g-0 d-flex justify-content-center align-items-center" >
                             <h3 className="col-0 col-lg-1 index-number mx-auto my-auto d-none d-lg-block">{event.position}</h3>
-                            <div className="col-12 col-lg-11 " >
+                            <Link to={`/${category}/${event.id}`} key={event.id} className="col-12 col-lg-11 image-container" >
                                 <img src={event.url} className="img-fluid  object-fit-cover" alt={event.filename}/>
-                            </div>
+                                <div className="overlay-text">{event.title}</div>
+                            </Link>
                         </div>
                     </div>
                      

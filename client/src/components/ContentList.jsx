@@ -151,32 +151,26 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     // ========================== DELETE ================================
     const handleDelete = async (item) => {
         const {id, title, filename} =item;
-        // 1. Give the user a chance to confirm the deletion (Highly recommended!)
+       
         if (!window.confirm(`Are you sure you want to delete item ${title}?`)) {
             return; // Stop if the user clicks Cancel
         }
         try {
             const {data: {deleteUrl}} = await axios.post(`${API_URL}/img-R2-delete`, {key: filename})
-            await axios.delete(deleteUrl);
-            const response = await fetch(`${API_URL}/event/${id}`, {
-                method: 'DELETE',
-            });
 
-            // The backend should return status 200/204, which is covered by response.ok
-            if (response.ok) {
-                // 2. Success! Update the local state (UI) immediately.
-                // Remove the deleted item from the contentItems array in state.
-                setContentItems(prevItems => 
-                    prevItems.filter(item => item.id !== id)
-                );
+            await Promise.all([
+                axios.post(`${API_URL}/img-R2-delete-folder`, { prefix: `${id}/` }),
+                axios.delete(deleteUrl),
+                fetch(`${API_URL}/event/detail/${id}`, { method: 'DELETE' }),
+                fetch(`${API_URL}/event/${id}`, { method: 'DELETE' })
+            ]);
+
+           
+            setContentItems(prevItems => 
+                prevItems.filter(item => item.id !== id)
+            );
                 
-                console.log(`Item at id ${id} deleted successfully!`);
-            } else {
-                // Handle HTTP errors (404, 500)
-                const errorResult = await response.json(); 
-                console.error('Deletion Failed:', errorResult.message || response.statusText);
-                alert(`Deletion failed: ${errorResult.message || response.statusText}`);
-            }
+              
 
         } catch (error) {
             // Handle network errors
@@ -284,8 +278,8 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
                     className={index === dragIndex ? "dragging" : ""}>
                         
                     <div key={item.id} className="content-item">
-                        {(index%2 === 1) && (<EventCard event={item} />)}
-                        {(index%2 === 0) && (<EventCard2 event={item} />)}
+                        {(index%2 === 1) && (<EventCard event={item} category={pageCategory}/>)}
+                        {(index%2 === 0) && (<EventCard2 event={item} category={pageCategory}/>)}
                         {(userRole === 'admin' && !isPreviewMode) &&(
                             <div className="row d-flex justify-content-center">
                             

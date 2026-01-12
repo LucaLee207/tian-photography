@@ -39,9 +39,9 @@ function NavBar() {
             {/* LEFT LINKS */}
             <Link to="/" className={currentPath==='/' ? 'active':''}>Home</Link>
             <Link to="/portrait" className={currentPath==='/portrait' ? 'active':''}>Portrait</Link>
-            <Link to="/wedding" className={currentPath==='/wedding' ? 'active':''}>Wedding</Link>
-            <Link to="/concert" className={currentPath==='/concert' ? 'active':''}>Concert</Link>
-            
+            <Link to="/wedding" className={currentPath.startsWith('/wedding') ? 'active':''}>Wedding</Link>
+            <Link to="/concert" className={currentPath.startsWith('/concert') ? 'active':''}>Concert</Link>
+
             <div className="navbar-brand mb-1 mx-3 bodoni-moda-serif"> 
                 <h1>TIAN</h1>
                 {/* <img src={'/logo.png'} alt="Logo" height="30" /> */}
@@ -49,8 +49,8 @@ function NavBar() {
             {/* The Logo is already placed in the center (navbar-brand) */}
             
             {/* RIGHT LINKS */}
-            <Link to="/travel" className={currentPath==='/travel' ? 'active':''}>Travel</Link>
-            <Link to="/activity" className={currentPath==='/activity' ? 'active':''}>Activity</Link>
+            <Link to="/travel" className={currentPath.startsWith('/travel') ? 'active':''}>Travel</Link>
+            <Link to="/activity" className={currentPath.startsWith('/activity') ? 'active':''}>Activity</Link>
             <Link to="/myworks" className={currentPath==='/myworks' ? 'active':''}>MyWorks</Link>
             <Link to="/about" className={currentPath==='/about' ? 'active':''}>About</Link>
         </div>

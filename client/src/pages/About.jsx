@@ -6,7 +6,7 @@ function About(){
 
         <div className="d-flex-column justify-content-center align-items-center">
             
-            <div className="w-75 my-5 pt-5 pe-3 mx-auto text-center image-container"> 
+            <div className="w-75 my-5 pt-5 pe-3 mx-auto text-center "> 
                 <img 
                     src={"./about.jpg"} 
                     className="img-fluid object-fit-cover w-75 p-1 about-img" /* ⬅️ Image takes 100% of its parent (w-50) */

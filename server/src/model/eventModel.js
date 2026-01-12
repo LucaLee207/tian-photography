@@ -28,6 +28,11 @@ export const deleteEventService = async (id) => {
     return result.rows[0];
 };
 
+export const deleteEventDetailService = async(id) =>{
+    const result = await pool.query("DELETE FROM artwork WHERE category = $1", [id]);
+    return result.rows[0];
+}
+
 export const orderEventsService = async (ids) => {
     // This ensures if any update fails, ALL previous updates are rolled back.
     for (let i = 0; i < ids.length; i++) {

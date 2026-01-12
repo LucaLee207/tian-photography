@@ -1,4 +1,4 @@
-import { createEventService, deleteEventService, getAllEventsService, getEventByIdService, updateEventService, orderEventsService } from "../model/eventModel.js";
+import { createEventService, deleteEventService, getAllEventsService, getEventByIdService, updateEventService, orderEventsService, deleteEventDetailService } from "../model/eventModel.js";
 
 const handleResponse = (res, status, message, data=null) => {
     res.status(status).json({
@@ -53,6 +53,15 @@ export const deleteEvent = async (req, res, next) =>{
         if (!findEvent) return handleResponse(res, 404, "Event not found");
         const deletedEvent = await deleteEventService(req.params.id);
         handleResponse(res, 200, "Event deleted successfully", deletedEvent);
+    } catch (err) {
+        next(err);
+    };
+};
+
+export const deleteEventDetail = async (req, res, next) =>{
+    try {
+        const deletedEvent = await deleteEventDetailService(req.params.id);
+        handleResponse(res, 200, "Event details deleted successfully", deletedEvent);
     } catch (err) {
         next(err);
     };
