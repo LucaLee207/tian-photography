@@ -13,7 +13,7 @@ function EventCard({ event, category }) {
                             <h3 className="col-0 col-lg-1 index-number mx-auto my-auto d-none d-lg-block">{event.position}</h3>
                             <Link to={`/${category}/${event.id}`} key={event.id} className="col-12 col-lg-11 image-container" >
                                 <img src={event.url} className="img-fluid  object-fit-cover" alt={event.filename}/>
-                                <div className="overlay-text">{event.title}</div>
+                                <div className="overlay-text">{event.hovertext || event.title}</div>
                             </Link>
                         </div>
                     </div>

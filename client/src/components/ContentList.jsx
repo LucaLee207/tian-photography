@@ -27,6 +27,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     const [updateItems, setUpdateItems] = useState({
         title: '',
         content: '',
+        hovertext: '',
     });
     // 7. State for draggable items
     const [dragIndex, setDragIndex] = useState(null);

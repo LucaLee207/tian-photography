@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+
 // You would replace this with your actual CSS or a styling library
 const modalStyles = {
     overlay: {
@@ -18,6 +19,7 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     const [formData, setFormData] = useState({
         title: '',
         content: '',
+        hovertext: '',
     });
 
     const handleChange = (e) => {
@@ -42,14 +44,14 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
         });
 
         // Reset the form data after submission
-        setFormData({  title: '', content: ''});
+        setFormData({  title: '', content: '', hovertext: ''});
         
         // Close the modal
         onClose();
     };
     const handleCancel = (e) => {
         // Reset the form data after submission
-        setFormData({ title: '', content: ''});
+        setFormData({ title: '', content: '', hovertext: ''});
         
         // Close the modal
         onClose();
@@ -61,9 +63,8 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
     return (
         <div style={modalStyles.overlay}>
             <div style={modalStyles.content}>
-                <h3>Create New Item</h3>
                 <form onSubmit={handleSubmit}>
-                    <div className="row g-2 d-flex flex-column">
+                    <div className="row g-0 d-flex flex-column">
                     <h6>Title</h6>  
                     <input 
                         type="text" 
@@ -78,6 +79,14 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
                         name="content" 
                         placeholder="Content" 
                         value={formData.content} 
+                        onChange={handleChange} 
+                        required
+                    />
+                    <h6>Hover Text</h6>
+                    <textarea 
+                        name="hovertext" 
+                        placeholder="Hover Text" 
+                        value={formData.hovertext} 
                         onChange={handleChange} 
                         required
                     />

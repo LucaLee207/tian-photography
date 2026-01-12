@@ -36,11 +36,11 @@ export const getEventById = async (req, res, next) =>{
     };
 };
 export const updateEvent = async (req, res, next) =>{
-    const {title, content} = req.body;
+    const {title, content, hovertext} = req.body;
     try {
         const event = await getEventByIdService(req.params.id);
         if (!event) return handleResponse(res, 404, "Event not found");
-        const updatedEvent = await updateEventService(req.params.id, title, content);
+        const updatedEvent = await updateEventService(req.params.id, title, content, hovertext);
         handleResponse(res, 200, "Event updated successfully", updatedEvent);
     } catch (err) {
         next(err);

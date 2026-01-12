@@ -40,7 +40,7 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
             <div style={modalStyles.content}>
                 <h2>Update</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="row g-2 d-flex flex-column">
+                    <div className="row g-0 d-flex flex-column">
                     <h6>Title</h6>
                     <input 
                         type="text" 
@@ -59,6 +59,14 @@ function UpdateEventModal({ data, isOpen, onClose, onUpdateSubmit, updateData}) 
                         required
                     />
                     
+                    <h6>Hover Text</h6>
+                    <textarea 
+                        name="hovertext" 
+                        placeholder="Hover Text" 
+                        value={data.hovertext} 
+                        onChange={handleChange} 
+                        required
+                    />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '15px' }}>
                         <button type="button" className="btn btn-outline-secondary" onClick={onClose} style={{ marginRight: '10px' }}>Cancel</button>

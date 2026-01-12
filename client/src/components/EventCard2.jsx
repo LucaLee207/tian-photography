@@ -11,7 +11,7 @@ function EventCard2({ event, category }) {
                         <div className="row g-0 d-flex justify-content-center align-items-center" >
                             <Link to={`/${category}/${event.id}`} key={event.id} className="col-12 col-lg-11 image-container" >
                                 <img src={event.url} className="img-fluid  object-fit-cover" alt={event.filename}/>
-                                <div className="overlay-text">{event.title}</div>
+                                <div className="overlay-text">{event.hovertext || event.title}</div>
                             </Link>
                             <h3 style={{textAlign:"end"}} className="col-0 col-lg-1 index-number mx-auto my-auto d-none d-lg-block align-self-end">{event.position}</h3>
                         </div>
