@@ -46,8 +46,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
                 // Assuming the API returns an array of objects matching your schema
                 const responseBody = await response.json(); 
                 const data = responseBody.data
-                // 💡 Sort the data by the 'position' field before saving it
-                data.sort((a, b) => a.position - b.position);
+        
                 const filteredData = data.filter(item => item.category === pageCategory);
                 setContentItems(filteredData);
             } catch (err) {
@@ -70,12 +69,12 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
         return <div style={{ color: 'red' }}>Error: {error}</div>;
     }
 
-    // if (contentItems.length === 0) {
-    //     return <div>No content items found.</div>;
-    // }
+    
     // ========================== CREATE ================================
+
+
     const handleCreateSubmit = async (formData) => {
-        const {imageFile, tmpFileName, fileType} = formData;
+        const {imageFile, tmpFileName, fileType, title, content, hovertext} = formData;
         const fileName = `${pageCategory}/${tmpFileName}`
         
         try {
@@ -83,7 +82,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
             await axios.put(url, imageFile, {
                 headers: {"Content-Type": fileType}
             });
-            const data = {...formData, filename:fileName, position: 0, category: pageCategory, url:`https://img.tians-photography.com/${fileName}`};
+            const data = { filename:fileName, position: 0, category: pageCategory, url:`https://img.tians-photography.com/${fileName}`, title:title, content:content, hovertext:hovertext };
             const response = await fetch(`${API_URL}/event`, {
                 method: 'POST',
                 headers: {

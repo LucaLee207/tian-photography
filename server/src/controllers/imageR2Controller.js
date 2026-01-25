@@ -29,15 +29,19 @@ export async function uploadImg(req, res) {
 export async function deleteImg(req, res) {
     const { key } = req.body; // Receive the key from the frontend
 
-    const command = new DeleteObjectCommand({
-        Bucket: "tianphotography",
-        Key: key,
-    });
+    try{
+        const deleteParams = {
+            Bucket: "tianphotography",
+            Key: key,
+        };
 
-    // Generate a temporary link (valid for 60 seconds)
-    const url = await getSignedUrl(r2, command, { expiresIn: 60 });
-
-    res.status(200).json({ deleteUrl: url });
+        await r2.send(new DeleteObjectCommand(deleteParams));
+        res.status(200).json({ message: `Successfully deleted all object ${key}` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to delete object from R2" });
+    }
+    
 }
 
 export const deleteFolderByPrefix = async (req, res) => {

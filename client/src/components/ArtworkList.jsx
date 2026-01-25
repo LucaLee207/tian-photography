@@ -41,9 +41,8 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
             
                 // Assuming the API returns an array of objects matching your schema
                 const responseBody = await response.json(); 
-                const data = responseBody.data
-                // 💡 Sort the data by the 'position' field before saving it
-                data.sort((a, b) => a.position - b.position);
+                const data = responseBody.data;
+                
                 const filteredData = data.filter(item => item.category === pageCategory);
                 setArtworkItems(filteredData);
             } catch (err) {
@@ -290,6 +289,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
                                 style={{
                                     display: 'block',
                                     width: '100%',
+                                    height: 'auto',
                                 }}
                             />
                             

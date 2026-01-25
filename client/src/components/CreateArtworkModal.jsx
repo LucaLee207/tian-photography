@@ -12,20 +12,8 @@ const modalStyles = {
 };
 
 function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
-    // 1. State for Form Inputs
-    // const [formData, setFormData] = useState({
-    //     url: ''
-    // });
-
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormData(prevData => ({
-    //         ...prevData,
-    //         [name]: value,
-    //     }));
-    // };
-
-    // 2. Handle Submission Logic
+    
+   
     const handleSubmit = (e) => {
         e.preventDefault();
         
@@ -35,11 +23,10 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
         onCreateSubmit({
             imageFile: rawFile,
             tmpFileName: rawFile.name,
-            fileType: rawFile.type
+            fileType: rawFile.type,
         });
 
-        // Reset the form data after submission
-        // setFormData({ url: '' });
+       
         
         // Close the modal
         onClose();

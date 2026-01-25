@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-
 // You would replace this with your actual CSS or a styling library
 const modalStyles = {
     overlay: {
@@ -21,7 +20,7 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
         content: '',
         hovertext: '',
     });
-
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevData => ({
@@ -29,18 +28,19 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
             [name]: value,
         }));
     };
-
+    
     // 2. Handle Submission Logic
     const handleSubmit = (e) => {
         e.preventDefault();
         
         const fileInput = e.target.elements.file;
         const rawFile = fileInput.files[0];
+
         // Pass the form data up to the parent component for API submission
         onCreateSubmit({...formData,
             imageFile: rawFile,
             tmpFileName: rawFile.name,
-            fileType: rawFile.type
+            fileType: rawFile.type,
         });
 
         // Reset the form data after submission
