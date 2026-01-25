@@ -9,7 +9,7 @@ const handleResponse = (res, status, message, data=null) => {
 };
 
 export const createArtwork = async (req, res, next) =>{
-    const {position, url, category, filename} = req.body;
+    const {position, url, category, filename, imgWidth, imgHeight} = req.body;
     try {
         const newArtwork = await createArtworkService(position, url, category, filename);
         handleResponse(res, 201, "Artwork created successfully", newArtwork);

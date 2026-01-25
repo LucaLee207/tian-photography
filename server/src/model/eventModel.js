@@ -19,7 +19,7 @@ export const createEventService = async (position, title, content, url, category
 
 export const updateEventService = async (id, title, content, hovertext) => {
     const result = await pool.query("UPDATE event SET title=$1, content=$2, hovertext=$3 WHERE id=$4 RETURNING *", 
-        [title, content, hovertext, id]);
+        [title, content, id, hovertext]);
     return result.rows[0];
 };
 
