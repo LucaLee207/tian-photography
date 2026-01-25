@@ -170,8 +170,6 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
                 prevItems.filter(item => item.id !== id)
             );
                 
-              
-
         } catch (error) {
             // Handle network errors
             console.error('Network Error during deletion:', error);

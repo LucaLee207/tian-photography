@@ -151,27 +151,19 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
             return; // Stop if the user clicks Cancel
         }
         try {
-            const {data: {deleteUrl}} = await axios.post(`${API_URL}/img-R2-delete`, {key: filename})
-            await axios.delete(deleteUrl);
-            const response = await fetch(`${API_URL}/artwork/${id}`, {
-                method: 'DELETE',
-            });
+            await Promise.all([
+                axios.post(`${API_URL}/img-R2-delete`, {key:filename}),
+                fetch(`${API_URL}/artwork/${id}`, { method: 'DELETE' })
+            ])
 
-            // The backend should return status 200/204, which is covered by response.ok
-            if (response.ok) {
-                // 2. Success! Update the local state (UI) immediately.
-                // Remove the deleted item from the contentItems array in state.
-                setArtworkItems(prevItems => 
-                    prevItems.filter(item => item.id !== id)
-                );
-                
-                console.log(`Item at id ${id} deleted successfully!`);
-            } else {
-                // Handle HTTP errors (404, 500)
-                const errorResult = await response.json(); 
-                console.error('Deletion Failed:', errorResult.message || response.statusText);
-                alert(`Deletion failed: ${errorResult.message || response.statusText}`);
-            }
+
+            // 2. Success! Update the local state (UI) immediately.
+            setArtworkItems(prevItems => 
+                prevItems.filter(item => item.id !== id)
+            );
+            alert(`Item at id ${id} deleted successfully!`);
+            console.log(`Item at id ${id} deleted successfully!`);
+            
 
         } catch (error) {
             // Handle network errors
