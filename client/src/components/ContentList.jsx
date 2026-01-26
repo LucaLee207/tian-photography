@@ -74,15 +74,18 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
 
 
     const handleCreateSubmit = async (formData) => {
-        const {imageFile, tmpFileName, fileType, title, content, hovertext} = formData;
-        const fileName = `${pageCategory}/${tmpFileName}`
+        const {imageFile, fileName, fileType, title, content, hovertext} = formData;
+        const newFormData = new FormData();
+        newFormData.append('file', imageFile);
+        newFormData.append('fileName', fileName);
+        newFormData.append('category', pageCategory);
         
         try {
-            const {data: {url} } = await axios.post(`${API_URL}/img-R2-upload`, {fileName, fileType});
-            await axios.put(url, imageFile, {
-                headers: {"Content-Type": fileType}
+            const r2Response = await axios.post(`${API_URL}/img-R2-upload`, newFormData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
             });
-            const data = { filename:fileName, position: 0, category: pageCategory, url:`https://img.tians-photography.com/${fileName}`, title:title, content:content, hovertext:hovertext };
+            const data = {...r2Response.data, position: 0, category: pageCategory, title:title, content:content, hovertext:hovertext };
+            alert(r2Response.data.height);
             const response = await fetch(`${API_URL}/event`, {
                 method: 'POST',
                 headers: {

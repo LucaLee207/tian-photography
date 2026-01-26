@@ -11,15 +11,15 @@ export const getEventByIdService = async (id) => {
     return result.rows[0];
 };
 
-export const createEventService = async (position, title, content, url, category, filename, hovertext) => {
-    const result = await pool.query("INSERT INTO event (position, title, content, url, category, filename, hovertext) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *", 
-        [position, title, content, url, category, filename, hovertext]);
+export const createEventService = async (position, title, content, url, category, fileName, hovertext, width, height) => {
+    const result = await pool.query("INSERT INTO event (position, title, content, url, category, filename, hovertext, width, height) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *", 
+        [position, title, content, url, category, fileName, hovertext, width, height]);
     return result.rows[0];
 };
 
 export const updateEventService = async (id, title, content, hovertext) => {
     const result = await pool.query("UPDATE event SET title=$1, content=$2, hovertext=$3 WHERE id=$4 RETURNING *", 
-        [title, content, id, hovertext]);
+        [title, content, hovertext , id]);
     return result.rows[0];
 };
 

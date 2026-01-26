@@ -9,9 +9,9 @@ const handleResponse = (res, status, message, data=null) => {
 };
 
 export const createEvent = async (req, res, next) =>{
-    const {position, title, content, url, category, filename} = req.body;
+    const {position, title, content, url, category,hovertext, fileName, width, height} = req.body;
     try {
-        const newEvent = await createEventService(position, title, content, url, category, filename);
+        const newEvent = await createEventService(position, title, content, url, category,hovertext, fileName, width, height);
         handleResponse(res, 201, "Event created successfully", newEvent);
     } catch (err) {
         next(err);

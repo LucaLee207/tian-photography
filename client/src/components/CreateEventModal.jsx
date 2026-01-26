@@ -39,8 +39,7 @@ function CreateEventModal({ isOpen, onClose, onCreateSubmit }) {
         // Pass the form data up to the parent component for API submission
         onCreateSubmit({...formData,
             imageFile: rawFile,
-            tmpFileName: rawFile.name,
-            fileType: rawFile.type,
+            fileName: rawFile.name,
         });
 
         // Reset the form data after submission
