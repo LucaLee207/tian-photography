@@ -1,6 +1,7 @@
 // api/get-upload-url.js
 import { S3Client, PutObjectCommand,DeleteObjectCommand, ListObjectsV2Command, DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import sharp from "sharp";
 
 const r2 = new S3Client({
   region: "auto",
@@ -12,18 +13,42 @@ const r2 = new S3Client({
 });
 
 export async function uploadImg(req, res) {
-  const { fileName, fileType } = req.body;
+  const { fileName, category } = req.body;
+  try{
+    if (!req.file){
+        return res.status(400).json({error:"No file uploaded"});
+    }
+    const image = sharp(req.file.buffer);
+    const metadata = await image.metadata();
+    const optimizedImageBuffer = await image
+        .resize(1600, null, {withoutEnlargement: true})
+        .webp({ quality: 80 })
+        .toBuffer();
+    
+      const newFileName = `${category}/${Date.now()}-${fileName.split('.')[0]}.webp`;
+      const command = new PutObjectCommand({
+        Bucket: "tianphotography",
+        Key: newFileName,
+        Body: optimizedImageBuffer,
+        ContentType: "image/webp",
+    });
 
-  const command = new PutObjectCommand({
-    Bucket: "tianphotography",
-    Key: fileName,
-    ContentType: fileType,
-  });
+    await r2.send(command);
 
-  // Generate a URL that is valid for 60 seconds
-  const signedUrl = await getSignedUrl(r2, command, { expiresIn: 60 });
+    res.status(200).json({
+        url: 'https://img.tians-photography.com/' + newFileName,
+        width: Math.floor(Math.min(metadata.width, 1600)),
+        height: Math.floor(metadata.height * (Math.min(metadata.width, 1600) / metadata.width)),
+        fileName: newFileName
+    });
+  }
+  
 
-  res.status(200).json({ url: signedUrl });
+    catch (err) {
+        console.error("Error uploading image to R2:", err);
+        next(err);
+    }
+
 }
 
 export async function deleteImg(req, res) {

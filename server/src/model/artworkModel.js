@@ -11,9 +11,9 @@ export const getArtworkByIdService = async (id) => {
     return result.rows[0];
 };
 
-export const createArtworkService = async (position, url, category, filename) => {
-    const result = await pool.query("INSERT INTO artwork (position, url, category, filename) VALUES ($1, $2, $3, $4) RETURNING *", 
-        [position, url, category, filename]);
+export const createArtworkService = async (position, url, category, filename, width, height) => {
+    const result = await pool.query("INSERT INTO artwork (position, url, category, filename, width, height) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", 
+        [position, url, category, filename, width, height]);
     return result.rows[0];
 };
 

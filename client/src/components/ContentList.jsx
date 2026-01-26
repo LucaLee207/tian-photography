@@ -160,7 +160,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
 
             await Promise.all([
                 axios.post(`${API_URL}/img-R2-delete-folder`, { prefix: `${id}/` }),
-                axios.delete(deleteUrl),
+                axios.post(`${API_URL}/img-R2-delete`, {key: filename}),
                 fetch(`${API_URL}/event/detail/${id}`, { method: 'DELETE' }),
                 fetch(`${API_URL}/event/${id}`, { method: 'DELETE' })
             ]);
@@ -169,7 +169,8 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
             setContentItems(prevItems => 
                 prevItems.filter(item => item.id !== id)
             );
-                
+            alert(`Item at id ${id} deleted successfully!`);
+            console.log(`Item at id ${id} deleted successfully!`);
         } catch (error) {
             // Handle network errors
             console.error('Network Error during deletion:', error);

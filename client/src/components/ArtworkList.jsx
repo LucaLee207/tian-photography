@@ -70,14 +70,16 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // }
     // ========================== CREATE ================================
     const handleCreateSubmit = async (formData) => {
-        const {imageFile, tmpFileName, fileType} = formData;
-        const fileName = `${pageCategory}/${tmpFileName}`
+        const {imageFile, fileName} = formData;
+        const newFormData = new FormData();
+        newFormData.append('file', imageFile);
+        newFormData.append('fileName', fileName);
+        newFormData.append('category', pageCategory);
         try {
-            const {data: {url} } = await axios.post(`${API_URL}/img-R2-upload`, {fileName, fileType});
-            await axios.put(url, imageFile, {
-                headers: {"Content-Type": fileType}
+            const r2Response = await axios.post(`${API_URL}/img-R2-upload`, newFormData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
             });
-            const data = {filename: fileName, position:0, category:pageCategory, url:`https://img.tians-photography.com/${fileName}`};
+            const data = {...r2Response.data, position:0, category:pageCategory};
             const response = await fetch(`${API_URL}/artwork`, {
                 method: 'POST',
                 headers: {
@@ -88,16 +90,11 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
             
             const result = await response.json(); 
 
-            if (response.ok && result.data) {
-                console.log('Creation Successful:', result.data);
-                alert("Item created!"); 
-                
-                // 💡 Key Action: Update the main list after creation
-                setArtworkItems([result.data, ...contentItems])
-            } else {
-                console.error('API Error:', result.message);
-                alert(`Error: ${result.message}`);
-            }
+            
+            console.log('Creation Successful:', result.data);
+            alert("Item created!"); 
+            setArtworkItems([result.data, ...contentItems])
+            
 
         } catch (error) {
             console.error('Network Error:', error);
