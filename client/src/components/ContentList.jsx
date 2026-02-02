@@ -36,7 +36,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
     useEffect(() => {
-        let isMounted = true; // ⬅️ 增加一個旗標
+        var isMounted = true; // ⬅️ 增加一個旗標
         setIsLoading(true);
         async function fetchContent() {
             try {
@@ -45,12 +45,15 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
             
+                if (isMounted) { // ⬅️ 只有當組件還在畫面上時才更新狀態
+    
                 // Assuming the API returns an array of objects matching your schema
                 const responseBody = await response.json(); 
-                const data = responseBody.data
+                const data = responseBody.data;
+                setContentItems(data);
+                }
         
-                const filteredData = data.filter(item => item.category === pageCategory);
-                setContentItems(filteredData);
+               
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -63,13 +66,12 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
         return () => { isMounted = false; };
     }, [pageCategory]); // Empty dependency array ensures this runs only once
 
-    // 2. Conditional Rendering
     if (isLoading) {
-        return <div>Loading content...</div>;
+        return <div>Loading...</div>;
     }
 
     if (error) {
-        return <div style={{ color: 'red' }}>Error: {error}</div>;
+        return <div>Error: {error}</div>;
     }
 
     
