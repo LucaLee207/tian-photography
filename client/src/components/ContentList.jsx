@@ -74,7 +74,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
 
 
     const handleCreateSubmit = async (formData) => {
-        const {imageFile, fileName, fileType, title, content, hovertext} = formData;
+        const {imageFile, fileName, title, content, hovertext} = formData;
         const newFormData = new FormData();
         newFormData.append('file', imageFile);
         newFormData.append('fileName', fileName);
@@ -85,7 +85,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
             headers: { 'Content-Type': 'multipart/form-data' }
             });
             const data = {...r2Response.data, position: 0, category: pageCategory, title:title, content:content, hovertext:hovertext };
-            alert(r2Response.data.height);
+    
             const response = await fetch(`${API_URL}/event`, {
                 method: 'POST',
                 headers: {
@@ -233,10 +233,10 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     }
     // Render the Board
     return (
-        <div className="page-container content-list-container mx-3 mt-5 pt-5">
+        <div className="page-container content-list-container mx-3 mt-5 pt-3">
 
             {(userRole === 'admin' && !isPreviewMode) &&(
-                <div className="row d-flex justify-content-center align-items-center mb-3">
+                <div className="row d-flex justify-content-center align-items-center my-4">
                     <button 
                         type="button"
                         className="btn btn-outline-primary w-25"

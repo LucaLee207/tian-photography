@@ -1,6 +1,5 @@
 // api/get-upload-url.js
 import { S3Client, PutObjectCommand,DeleteObjectCommand, ListObjectsV2Command, DeleteObjectsCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import sharp from "sharp";
 
 const r2 = new S3Client({

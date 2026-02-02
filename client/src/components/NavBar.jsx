@@ -17,6 +17,7 @@ function NavBar() {
         {/* --- 1. HAMBURGER BUTTON (Visible on screens smaller than lg) --- */}
         <button 
             className="navbar-toggler d-lg-none ms-3" // Show Toggler only when < lg
+            style={{zIndex: 1000}} // Ensure it's above other content
             type="button" 
             data-bs-toggle="offcanvas" 
             data-bs-target="#offcanvasNavbar" 
@@ -26,11 +27,10 @@ function NavBar() {
         </button>
 
         {/* --- 2. LOGO (Always Visible, Centered on Mobile) --- */}
-        
         <div className="navbar-brand  mx-auto d-lg-none bodoni-moda-serif"> 
             <h1>TIAN</h1>
-            {/* <img src={'/logo.png'} alt="Logo" height="30" /> */}
         </div>
+        <div style={{ width: '43px' }} className="me-3 d-lg-none"></div>
 
         {/* --- 3. DESKTOP LINKS (Hidden on screens smaller than lg) --- */}
         <div className="navbar-links mx-auto d-none d-lg-flex justify-content-center align-items-center gap-2">
@@ -42,11 +42,10 @@ function NavBar() {
             <Link to="/wedding" className={currentPath.startsWith('/wedding') ? 'active':''}>Wedding</Link>
             <Link to="/concert" className={currentPath.startsWith('/concert') ? 'active':''}>Concert</Link>
 
-            <div className="navbar-brand mb-1 mx-3 bodoni-moda-serif"> 
+            <div className="navbar-brand mb-1 mx-3 bodoni-moda-serif "> 
                 <h1>TIAN</h1>
-                {/* <img src={'/logo.png'} alt="Logo" height="30" /> */}
             </div>
-            {/* The Logo is already placed in the center (navbar-brand) */}
+
             
             {/* RIGHT LINKS */}
             <Link to="/travel" className={currentPath.startsWith('/travel') ? 'active':''}>Travel</Link>
@@ -60,6 +59,7 @@ function NavBar() {
     {/* --- 4. OFFCANVAS CONTAINER (The Mobile Menu) --- */}
     <div 
         className="offcanvas offcanvas-start bg-light" 
+        style={{ width: '70vw'}}
         tabIndex="-1" 
         id="offcanvasNavbar" 
         aria-labelledby="offcanvasNavbarLabel"

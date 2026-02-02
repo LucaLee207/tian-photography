@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry'; 
 
 
+
 const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api'
 function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // 1. State for Data: Stores the fetched array of content items
@@ -252,11 +253,12 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
                 onUpdateSubmit={handleUpdate}
                 updateData={setUpdateItems}
             />
-            <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={1}>
+            <Masonry className="m-0" columns={{ xs: 2, sm: 2, md: 3, lg: 4 }} spacing={1}>
             
-                {contentItems.map((item, index) => (
-                    // ⬇️ Use the Paper component directly for each item ⬇️
-                    <Paper 
+                {contentItems.map((item, index) => {
+                    const itemRatio = item.width && item.height ? `${item.width} / ${item.height}` : "3 / 4";
+                    return (
+                        <Paper 
                         key={index} 
                         component="div" // Treat the Paper as a div for drag-and-drop
                         elevation={3}  // Add a noticeable shadow
@@ -266,10 +268,11 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
                         onDrop={isDraggingAllowed ? () => handleDrop(index) : undefined}
                         className={index === dragIndex ? "dragging" : ""}
                         // Add padding/spacing internally via the sx prop
-                        sx={{ boxShadow: "None", borderRadius:"0", overflow: 'hidden' }}
+                        sx={{width: '100%', aspectRatio: itemRatio, backgroundColor: '#f5f5f5', borderRadius:"3", overflow: 'hidden' }}
                     >
                         {/* Content is now inside the Paper container */}
                         <div className="content-item position-relative">
+                            
                             <img
                                 src={item.url}
                                 alt={item.filename}
@@ -281,7 +284,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
                                     height: 'auto',
                                 }}
                             />
-                            
+                         
                             {(userRole === 'admin' && !isPreviewMode) &&(
                             <>
                                 <button
@@ -297,7 +300,10 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
                             
                         </div>
                     </Paper>
-                ))}
+                    )}
+                    // ⬇️ Use the Paper component directly for each item ⬇️
+                    
+                )}
             </Masonry>
         </div>
     );
