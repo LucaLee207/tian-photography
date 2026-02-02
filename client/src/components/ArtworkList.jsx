@@ -37,7 +37,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
         setIsLoading(true);
         async function fetchArtwork() {
             try {
-                const response = await fetch(`${API_URL}/artwork`);
+                const response = await fetch(`${API_URL}/artwork?category=${pageCategory}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

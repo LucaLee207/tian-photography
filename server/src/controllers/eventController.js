@@ -20,7 +20,8 @@ export const createEvent = async (req, res, next) =>{
 
 export const getAllEvents = async (req, res, next) =>{
     try {
-        const newEvent = await getAllEventsService();
+        const {category} = req.query;
+        const newEvent = await getAllEventsService(category);
         handleResponse(res, 200, "All events fetched successfully", newEvent);
     } catch (err) {
         next(err);

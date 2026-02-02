@@ -20,7 +20,8 @@ export const createArtwork = async (req, res, next) =>{
 
 export const getAllArtworks = async (req, res, next) =>{
     try {
-        const newArtwork = await getAllArtworksService();
+        const {category} = req.query;
+        const newArtwork = await getAllArtworksService(category);
         handleResponse(res, 200, "All artworks fetched successfully", newArtwork);
     } catch (err) {
         next(err);

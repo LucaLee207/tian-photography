@@ -40,7 +40,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
         setIsLoading(true);
         async function fetchContent() {
             try {
-                const response = await fetch(`${API_URL}/event`);
+                const response = await fetch(`${API_URL}/event?category=${pageCategory}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

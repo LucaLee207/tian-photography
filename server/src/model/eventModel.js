@@ -1,8 +1,8 @@
 import pool from "../config/db.js"
 
 
-export const getAllEventsService = async () => {
-    const result = await pool.query("SELECT * FROM event ORDER BY position ASC");
+export const getAllEventsService = async (category) => {
+    const result = await pool.query("SELECT * FROM event WHERE category = $1 ORDER BY position ASC", [category]);
     return result.rows;
 };
 

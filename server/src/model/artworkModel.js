@@ -1,8 +1,8 @@
 import pool from "../config/db.js"
 
 
-export const getAllArtworksService = async () => {
-    const result = await pool.query("SELECT * FROM artwork ORDER BY position ASC");
+export const getAllArtworksService = async (category) => {
+    const result = await pool.query("SELECT * FROM artwork WHERE category = $1 ORDER BY position ASC", [category]);
     return result.rows;
 };
 
