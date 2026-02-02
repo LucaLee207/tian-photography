@@ -159,7 +159,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
             return; // Stop if the user clicks Cancel
         }
         try {
-            const {data: {deleteUrl}} = await axios.post(`${API_URL}/img-R2-delete`, {key: filename})
+            
 
             await Promise.all([
                 axios.post(`${API_URL}/img-R2-delete-folder`, { prefix: `${id}/` }),
