@@ -33,6 +33,8 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
     useEffect(() => {
+        let isMounted = true; // ⬅️ 增加一個旗標
+        setIsLoading(true);
         async function fetchArtwork() {
             try {
                 const response = await fetch(`${API_URL}/artwork`);
@@ -55,6 +57,7 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
         }
 
         fetchArtwork();
+        return () => { isMounted = false; };
     }, [pageCategory]); // Empty dependency array ensures this runs only once
 
     // 2. Conditional Rendering

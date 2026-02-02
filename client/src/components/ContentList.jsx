@@ -36,6 +36,8 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
     // ========================== READ ================================
     // useEffect runs the fetching logic once after the initial render
     useEffect(() => {
+        let isMounted = true; // ⬅️ 增加一個旗標
+        setIsLoading(true);
         async function fetchContent() {
             try {
                 const response = await fetch(`${API_URL}/event`);
@@ -58,6 +60,7 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
         }
 
         fetchContent();
+        return () => { isMounted = false; };
     }, [pageCategory]); // Empty dependency array ensures this runs only once
 
     // 2. Conditional Rendering
