@@ -63,17 +63,19 @@ function App() {
       <main className="main-content ">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/wedding" element={<Wedding userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-          <Route path="/activity" element={<Activity userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/portrait/:subcategory" element={<Portrait userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/wedding/:subcategory" element={<Wedding userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/activity/:subcategory" element={<Activity userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/concert" element={<Concert userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-          <Route path="/travel" element={<Travel userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
-          <Route path="/wedding/:id" element={<EventDetail pageCategory="wedding" userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-          <Route path="/activity/:id" element={<EventDetail pageCategory="activity" userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/travel/:subcategory" element={<Travel userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
+
+          <Route path="/wedding/:subcategory/:id" element={<EventDetail pageCategory={`wedding`} userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/activity/:subcategory/:id" element={<EventDetail pageCategory={`activity`} userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/concert/:id" element={<EventDetail pageCategory="concert" userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-          <Route path="/travel/:id" element={<EventDetail pageCategory="travel" userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
+          <Route path="/travel/:subcategory/:id" element={<EventDetail pageCategory={`travel`} userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
+          
           <Route path="/myworks" element={<MyWorks userRole={userRole} isPreviewMode={isPreviewMode}/>} />
-          <Route path="/portrait" element={<Portrait userRole={userRole} isPreviewMode={isPreviewMode}/>} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NoMatch/>} />
           <Route path="/tiansphotography0905-login" element={<AdminLoginPage setUserRole={setUserRole}/>} />
         </Routes>

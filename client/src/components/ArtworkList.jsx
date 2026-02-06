@@ -4,7 +4,7 @@ import CreateArtworkModal from './CreateArtworkModal';
 import UpdateArtworkModal from './UpdateArtworkModal';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry'; 
-
+import NoMatch from '../pages/NoMatch';
 
 
 const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api'
@@ -222,6 +222,11 @@ function ArtworkList({pageCategory, userRole, isPreviewMode}) {
         }
 
     }
+    if (contentItems.length === 0 && (userRole === 'user' || isPreviewMode)) {
+        return <NoMatch/>;
+    }
+
+
     // Render the Board
     return (
         <div className="page-container content-list-container mx-3 mt-5 pt-5 ">

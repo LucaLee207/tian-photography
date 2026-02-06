@@ -72,7 +72,7 @@ function NavBar() {
                 <ul className="dropdown-menu border-0 rounded-0 shadow mt-2 " aria-labelledby="weddingDropdown" style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}} >
                     
                     <li><div className="d-block mb-2"><Link to="/wedding/day" className={`${currentPath==='/wedding/day' ? ' active':''}`} >婚禮紀錄</Link></div></li>
-                    <li><div className="d-block mb-2"><Link to="/wedding/pre" className={`${currentPath==='/wedding/pre' ? ' active':''} `}>婚紗寫真</Link></div></li>
+                    <li><div className="d-block "><Link to="/wedding/pre" className={`${currentPath==='/wedding/pre' ? ' active':''} `}>婚紗寫真</Link></div></li>
                 </ul>
             </div>
             <div className="nav-item dropdown d-flex flex-column">
@@ -120,7 +120,7 @@ function NavBar() {
                 </ul>
             </div>
             <Link to="/concert" className={currentPath.startsWith('/concert') ? 'active':''}>Concert</Link>
-            <Link to="/myworks" className={currentPath==='/myworks' ? 'active':''}>MyWorks</Link>
+            <Link to="/myworks" className={currentPath==='/myworks' ? 'active':''}>My Works</Link>
             <Link to="/about" className={currentPath==='/about' ? 'active':''}>About</Link>
         </div>
         
@@ -223,7 +223,7 @@ function NavBar() {
             <div className="d-block mb-4"><Link to="/concert" className={`${currentPath.startsWith('/concert') ? 'active':''}`}>Concert</Link></div>
 
             {/* 7. OTHER LINKS */}
-            <div className="d-block mb-4"><Link to="/myworks" className={` ${currentPath==='/myworks' ? 'active':''}`}>MyWorks</Link></div>
+            <div className="d-block mb-4"><Link to="/myworks" className={` ${currentPath==='/myworks' ? 'active':''}`}>My Works</Link></div>
             <div className="d-block mb-4"><Link to="/about" className={` ${currentPath==='/about' ? 'active':''}`}>About</Link></div>
         </div>
                 </div>

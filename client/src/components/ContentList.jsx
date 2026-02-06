@@ -5,6 +5,7 @@ import UpdateEventModal from './UpdateEventModal';
 import EventCard from './EventCard';
 import EventCard2 from './EventCard2';
 import axios from 'axios';
+import NoMatch from '../pages/NoMatch';
 
 // const API_URL = 'http://localhost:5000/api/event'; 
 // const API_URL_R2 = 'http://localhost:5000/api/img-R2-';
@@ -235,6 +236,9 @@ function ContentList({pageCategory, userRole, isPreviewMode}) {
             alert('Network error. Could not connect to the API.');
         }
 
+    }
+    if (contentItems.length === 0 && (userRole === 'user' || isPreviewMode)) {
+        return <NoMatch/>;
     }
     // Render the Board
     return (
