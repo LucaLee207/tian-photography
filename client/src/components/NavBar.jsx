@@ -147,7 +147,7 @@ function NavBar() {
             <div className="nav-item dropdown mb-4">
                 <a 
                     className={`${currentPath.startsWith('/portrait') ? 'active':''}`}
-                    href="#" 
+                    href="/portrait" 
                     role="button" 
                     data-bs-toggle="dropdown" 
                     data-bs-auto-close="false"
@@ -155,6 +155,7 @@ function NavBar() {
                 >
                     Portrait
                 </a>
+                
                 <ul className="dropdown-menu border-0 bg-transparent ps-3">
                     <div className="d-block mb-3"><li><Link to="/portrait/individual" className={`${currentPath==='/portrait/individual' ? 'active':''}`}>個人寫真</Link></li></div>
                     <div className="d-block mb-3"><li><Link to="/portrait/couple" className={` ${currentPath==='/portrait/couple' ? 'active':''}`}>雙人寫真</Link></li></div>
@@ -168,7 +169,7 @@ function NavBar() {
             <div className="nav-item dropdown mb-4">
                 <a 
                     className={` ${currentPath.startsWith('/wedding') ? 'active':''}`}
-                    href="#" 
+                    href="/wedding" 
                     role="button" 
                     data-bs-toggle="dropdown"
                     data-bs-auto-close="false"
@@ -186,7 +187,7 @@ function NavBar() {
             <div className="nav-item dropdown mb-4">
                 <a 
                     className={` ${currentPath.startsWith('/travel') ? 'active':''}`}
-                    href="#" 
+                    href="/travel" 
                     role="button" 
                     data-bs-toggle="dropdown" 
                     data-bs-auto-close="false"
@@ -206,7 +207,7 @@ function NavBar() {
             <div className="nav-item dropdown mb-4">
                 <a 
                     className={`  ${currentPath.startsWith('/activity') ? 'active':''}`}
-                    href="#" 
+                    href="/activity" 
                     role="button" 
                     data-bs-toggle="dropdown" 
                     data-bs-auto-close="false"
