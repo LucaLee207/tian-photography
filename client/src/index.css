@@ -69,6 +69,24 @@
     color: #000;
 }
 
+/* Change the active state of dropdown items */
+.dropdown-item.active, 
+.dropdown-item:active {
+    background-color: #c8ced3 !important; /* Removes the blue background */
+    color: #000 !important;                  /* Sets text to black */
+  
+}
+.dropdown-item:hover {
+    background-color: #c8ced3 !important; /* Light gray on hover */
+    color: #000 !important;                  /* Ensure text is black on hover */
+}
+
+
+
+/* If you want a specific brand color instead of black */
+
+
+
 .bodoni-moda-serif{
   font-family: "Bodoni Moda", serif;
   font-optical-sizing: auto;
@@ -214,3 +232,4 @@
 .image-container:hover img {
   transform: scale(1.05); /* Optional: Zooms the image slightly */
 }
+
