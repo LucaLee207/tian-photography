@@ -3,12 +3,13 @@
 A high-performance, full-stack portfolio and gallery management system designed to showcase the professional works of Tian. This platform prioritizes visual fidelity while maintaining web performance through automated image processing and edge-caching strategies. **All photographs featured on this platform are the exclusive property of Tian.**
 
 <img width="800"  alt="demo image" src="https://github.com/user-attachments/assets/79456acb-c497-466b-b4f3-0b698796bfa3" />
-
+<img width="572" height="151" alt="截圖 2026-04-29 凌晨2 21 57" src="https://github.com/user-attachments/assets/633f6359-c78e-411a-b9dc-dde49151d664" />
 
 ## Key Technical Achievements
 * **Sub-500ms Performance**: Leveraged **Cloudflare Edge-Caching** and **Neon PostgreSQL** to achieve sub-500ms page loads.
 * **60% LCP Optimization**: Engineered a pipeline using **Sharp** to convert raw assets into multi-resolution **WebP** formats, significantly reducing Largest Contentful Paint (LCP).
 * **Production-Grade CI/CD**: Maintained **95%+ backend code coverage** with Vitest and Supertest, integrated into a GitHub Actions pipeline for zero-downtime deployments.
+
 
 ## Tech Stack
 
