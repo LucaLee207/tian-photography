@@ -1,7 +1,7 @@
 import React from "react"
-import ArtworkList from "../components/ArtworkList"
 import NoMatch from "./NoMatch";
 import { useParams } from 'react-router-dom';
+import ContentList from "../components/ContentList";
 
 function Portrait({userRole, isPreviewMode}){
     const { subcategory } = useParams();
@@ -14,7 +14,7 @@ function Portrait({userRole, isPreviewMode}){
     }else{
         return(
             <>
-            <ArtworkList pageCategory={`portrait/${subcategory}`} userRole={userRole} isPreviewMode={isPreviewMode}/>
+            <ContentList pageCategory={`portrait/${subcategory}`} userRole={userRole} isPreviewMode={isPreviewMode}/>
             </>
         )
     }   

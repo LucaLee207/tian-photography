@@ -69,6 +69,7 @@ function App() {
           <Route path="/concert" element={<Concert userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/travel/:subcategory" element={<Travel userRole={userRole} isPreviewMode={isPreviewMode}/>}/>
 
+          <Route path="/portrait/:subcategory/:id" element={<EventDetail pageCategory={`portrait`} userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/wedding/:subcategory/:id" element={<EventDetail pageCategory={`wedding`} userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/activity/:subcategory/:id" element={<EventDetail pageCategory={`activity`} userRole={userRole} isPreviewMode={isPreviewMode}/>} />
           <Route path="/concert/:id" element={<EventDetail pageCategory="concert" userRole={userRole} isPreviewMode={isPreviewMode}/>} />
